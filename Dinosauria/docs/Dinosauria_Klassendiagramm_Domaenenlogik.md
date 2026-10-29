@@ -197,7 +197,7 @@ Spielkarte "*" --> "1" Karte : Karte
 Dinosaurierart "*" --> "1" Ressource : Produktionsressource
 Dinosaurierart "*" --> "1" Ressource : Kostenressource
 Karte "*" --> "1" Ressource : Kostenressource
-Karte "*" --> "1" Dinosaurierart : WirktAuf
+Dinosaurierart "1" <-- "0..*" Karte : Karten
 Spielziel "1" *-- "1..*" Aufgabenbedingung : Zielbedingungen
 Dinosaurierart "1" *-- "0..*" Aufgabenbedingung : Freischaltbedingungen
 Karte "1" *-- "0..*" Aufgabenbedingung : Freischaltbedingungen
