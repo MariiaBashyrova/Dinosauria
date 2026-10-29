@@ -4,8 +4,9 @@
 
 **Dinosauria** ist ein inkrementelles Aufbauspiel, in dem Spieler
 Dinosaurier erwerben, Ressourcen produzieren und weitere Dinosaurier
-freischalten. Ziel einer Spielrunde ist es, alle vorgegebenen
-Spielbedingungen zu erfüllen und dadurch das Spielziel zu erreichen.
+sowie Karten freischalten. Ziel einer Spielrunde ist es, alle
+vorgegebenen Spielbedingungen zu erfüllen und dadurch das Spielziel zu
+erreichen.
 
 Die benötigte Zeit bis zum Erreichen des Spielziels ist das Ergebnis der
 Spielrunde. Nach erfolgreichem Abschluss wird die Runde beendet und das
@@ -23,7 +24,7 @@ die Entwicklung einer Desktop-Anwendung mit WPF praktisch umzusetzen.
 -   **Entity Framework Core (EF Core)** für den Datenzugriff und die
     Abbildung der Anwendungsobjekte auf die Datenbank
 -   **SQL-Datenbank** zur dauerhaften Speicherung von Spielern,
-    Spielrunden, Spielständen, Dinosauriern und Ergebnissen
+    Spielrunden, Spielständen, Dinosauriern, Karten und Ergebnissen
 -   **PlantUML** für UML- und Datenbankdiagramme in einer späteren
     Projektphase
 -   **Markdown** für die Projektdokumentation
@@ -39,27 +40,33 @@ objektorientierten Struktur.
 2.  Ein Spieler kann mehrere unabhängige Spielrunden anlegen und
     gespeicherte Runden fortsetzen.
 3.  Zu Beginn einer Spielrunde wird ein Spielziel festgelegt.
-4.  Der Spieler verwendet vorhandene Ressourcen, um Dinosaurier zu
-    erwerben.
+4.  Der Spieler verwendet vorhandene Ressourcen, um Dinosaurier und
+    Karten zu erwerben.
 5.  Die erworbenen Dinosaurier produzieren automatisch Ressourcen,
     solange die Spielrunde läuft.
-6.  Weitere Dinosaurier werden freigeschaltet, sobald ihre
-    Freischaltbedingungen erfüllt sind.
+6.  Weitere Dinosaurier und Karten werden freigeschaltet, sobald ihre
+    jeweiligen Freischaltbedingungen erfüllt sind.
 7.  Sowohl ein Spielziel als auch die Freischaltung eines Dinosauriers
-    können von mehreren Bedingungen abhängen.
+    oder einer Karte können von mehreren Bedingungen abhängen.
 8.  **Alle** einer Zieldefinition zugeordneten Bedingungen müssen
     erfüllt sein. Es gilt eine UND-Verknüpfung; eine ODER-Verknüpfung
     ist für die erste Version nicht vorgesehen.
 9.  Das erste Spielziel besteht darin, eine festgelegte Gesamtmenge
     einer Ressource zu produzieren. Es geht ausdrücklich nicht darum,
     diese Menge gleichzeitig im Ressourcenbestand zu besitzen.
-10. Ausgaben für Dinosaurier verringern den aktuellen Ressourcenbestand,
-    aber nicht die bereits insgesamt produzierte Ressourcenmenge.
-11. Sobald alle Bedingungen des Spielziels erfüllt sind, wird die
+10. Ausgaben für Dinosaurier und Karten verringern den aktuellen
+    Ressourcenbestand, aber nicht die bereits insgesamt produzierte
+    Ressourcenmenge.
+11. Karten sind kaufbare Spielelemente. Eine Karte wird nach Erfüllung
+    ihrer Freischaltbedingungen verfügbar und kann Ressourcen kosten.
+    Ihre Wirkung besteht darin, die Produktionsrate eines bestimmten
+    Generators bzw. Dinosauriertyps um einen festgelegten Faktor zu
+    erhöhen.
+12. Sobald alle Bedingungen des Spielziels erfüllt sind, wird die
     Spielrunde beendet. Die bis dahin benötigte Spielzeit ist das
     Ergebnis.
-12. Abgeschlossene Ergebnisse werden gespeichert und können später in
-    Ranglisten angezeigt werden.
+13. Abgeschlossene Ergebnisse werden gespeichert und können später in
+    Ranglisten angezeigt.
 
 ## 4. Speichern und Ranglisten
 
@@ -92,18 +99,20 @@ fachliche Konzept: **Aufgabenbedingung**. Konkrete Bedingungstypen
 können davon abgeleitet und im Laufe der Weiterentwicklung ergänzt
 werden.
 
-Die Zuordnung erfolgt über zwei unterschiedliche Beziehungen:
+Die Zuordnung erfolgt über unterschiedliche Beziehungen:
 
 -   **Spielbedingung:** Verknüpft eine Spielrunde mit den Bedingungen,
     die für das Erreichen ihres Spielziels erfüllt sein müssen.
 -   **Dinosaurierbedingung:** Verknüpft einen Dinosaurier mit den
     Bedingungen, die für seine Freischaltung erfüllt sein müssen.
+-   **Kartenbedingung:** Verknüpft eine Karte mit den Bedingungen, die
+    für ihre Freischaltung erfüllt sein müssen.
 
-Für beide Beziehungen gilt: Alle zugeordneten Bedingungen müssen erfüllt
-sein. In der ersten Version wird als konkrete Bedingung mindestens die
-Produktion einer festgelegten Ressourcenmenge benötigt. Weitere Typen,
-etwa der Besitz einer bestimmten Anzahl von Dinosauriern, können später
-ergänzt werden.
+Für alle drei Beziehungen gilt: Alle zugeordneten Bedingungen müssen
+erfüllt sein. In der ersten Version wird als konkreter Bedingungstyp
+mindestens die Produktion einer festgelegten Ressourcenmenge benötigt.
+Weitere Typen, etwa der Besitz einer bestimmten Anzahl von Dinosauriern,
+können später ergänzt werden.
 
 ## 6. Zentrale Entitäten und ihre Beziehungen
 
@@ -118,16 +127,17 @@ für seinen Eintrag in der Spielerrangliste.
 
 Repräsentiert eine einzelne, unabhängige Spielrunde. Sie verwaltet den
 laufenden Spielzustand, verwendet ein Spielziel und steht mit den in
-dieser Runde vorhandenen Ressourcen sowie den erworbenen Dinosauriern in
-Beziehung. Nach Erfüllung des Spielziels wird die Runde abgeschlossen
-und ihre benötigte Spielzeit als Ergebnis festgehalten.
+dieser Runde vorhandenen Ressourcen sowie den erworbenen Dinosauriern
+und Karten in Beziehung. Nach Erfüllung des Spielziels wird die Runde
+abgeschlossen und ihre benötigte Spielzeit als Ergebnis festgehalten.
 
 ### Aufgabenbedingung (abstrakt)
 
 Beschreibt eine überprüfbare Voraussetzung. Von dieser abstrakten
 Entität werden konkrete Bedingungstypen abgeleitet. Eine
-Aufgabenbedingung kann über die Zuordnungstabellen bei Spielzielen oder
-bei der Freischaltung von Dinosauriern eingesetzt werden.
+Aufgabenbedingung kann über Zuordnungstabellen bei Spielzielen, bei der
+Freischaltung von Dinosauriern oder bei der Freischaltung von Karten
+eingesetzt werden.
 
 ### Spielbedingung
 
@@ -141,12 +151,28 @@ Verknüpft einen Dinosaurier mit seinen Freischaltbedingungen. Ein
 Dinosaurier wird verfügbar, wenn sämtliche ihm zugeordneten Bedingungen
 erfüllt sind.
 
+### Karte
+
+Repräsentiert ein kaufbares Spielelement, das nach Erfüllung seiner
+Freischaltbedingungen verfügbar wird. Der Erwerb kostet Ressourcen. Eine
+Karte beeinflusst die Produktionsrate eines festgelegten Generators bzw.
+Dinosauriertyps, indem sie diese um einen bestimmten Faktor erhöht. Die
+genaue Regel, ob Karten einmalig oder mehrfach gekauft werden können und
+ob ihre Wirkung stapelbar ist, wird in der Detailplanung festgelegt.
+
+### Kartenbedingung
+
+Verknüpft eine Karte mit den Aufgabenbedingungen, die vor ihrem
+Freischalten erfüllt sein müssen. Alle zugeordneten Bedingungen müssen
+erfüllt sein.
+
 ### Dinosaurier
 
 Repräsentiert einen Dinosauriertyp im gemeinsamen Katalog des Spiels.
 Seine fachlichen Eigenschaften bestimmen unter anderem die
-Anschaffungskosten, die produzierte Ressource und die Produktionsrate.
-Der Katalog gilt grundsätzlich für alle Spieler und Spielrunden.
+Anschaffungskosten, die produzierte Ressource und die
+Basis-Produktionsrate. Der Katalog gilt grundsätzlich für alle Spieler
+und Spielrunden.
 
 ### Gekaufter Dinosaurier / Spiel-Dinosaurier
 
@@ -154,6 +180,14 @@ Repräsentiert die Verwendung eines Dinosauriertyps innerhalb einer
 bestimmten Spielrunde und hält fest, wie viele Exemplare dieses Typs der
 Spieler in dieser Runde besitzt. Die Anzahl beeinflusst die
 Ressourcenproduktion dieser Runde.
+
+### Spielkarte / Gekaufte Karte
+
+Repräsentiert den Erwerb einer Karte innerhalb einer bestimmten
+Spielrunde. Sie verbindet die Karte aus dem gemeinsamen Kartenkatalog
+mit der jeweiligen Spielrunde und hält den Besitz sowie gegebenenfalls
+die Anzahl fest. Ihre Wirkung wird bei der Berechnung der
+Produktionsrate des betroffenen Dinosauriertyps berücksichtigt.
 
 ### Ressource
 
@@ -165,9 +199,9 @@ um zusätzliche Ressourcentypen ermöglichen.
 
 Verknüpft eine Spielrunde mit einer Ressource und hält den aktuellen
 Bestand sowie die insgesamt produzierte Menge fest. Der Bestand wird
-durch Produktion erhöht und durch Käufe verringert. Die
-Gesamtproduktionsmenge steigt nur durch Produktion und wird durch
-Ausgaben nicht reduziert.
+durch Produktion erhöht und durch Käufe von Dinosauriern oder Karten
+verringert. Die Gesamtproduktionsmenge steigt nur durch Produktion und
+wird durch Ausgaben nicht reduziert.
 
 ### Ergebnis einer Spielrunde
 
@@ -190,6 +224,8 @@ detaillierten Datenmodellierung entschieden.
     Ressourcen produzieren und mir weitere Käufe ermöglichen.
 -   **Als Spieler** möchte ich neue Dinosaurier freischalten, indem ich
     alle dafür erforderlichen Bedingungen erfülle.
+-   **Als Spieler** möchte ich Karten freischalten und kaufen, damit ich
+    die Produktionsrate bestimmter Dinosauriertypen erhöhen kann.
 -   **Als Spieler** möchte ich meinen Spielstand speichern und später
     fortsetzen können.
 -   **Als Spieler** möchte ich nach Abschluss einer Spielrunde meine
@@ -207,7 +243,9 @@ detaillierten Datenmodellierung entschieden.
 -   Mehrere Spielrunden pro Spieler
 -   Dinosaurier kaufen und Ressourcen automatisch produzieren
 -   Eine Ressource
--   Freischaltung von Dinosauriern über mehrere Bedingungen
+-   Freischaltung von Dinosauriern und Karten über mehrere Bedingungen
+-   Karten, die die Produktionsrate eines bestimmten Dinosauriertyps
+    durch einen Faktor erhöhen
 -   Ein Spielzieltyp: eine festgelegte Ressourcenmenge produzieren
 -   Speichern und Fortsetzen laufender Spielrunden
 -   Abschlusszeit speichern und Ranglisten anzeigen
@@ -229,11 +267,15 @@ Ressourcentypen konfiguriert werden können.
 
 ## 9. Offene Punkte für die Detailplanung
 
--   Konkrete Dinosaurier und ihre Spielwerte
+-   Konkrete Dinosaurier, Karten und ihre Spielwerte
 -   Exakte Freischaltbedingungen und deren Parameter
+-   Ob Karten nur einmal oder mehrfach gekauft werden können
+-   Ob sich die Effekte mehrerer Karten addieren oder multiplizieren
+-   Wie sich eine Karte auf die Produktionsrate auswirkt, wenn der
+    betreffende Dinosauriertyp noch nicht gekauft wurde
 -   Anzahl und Gestaltung der Spielziele für die erste Version
 -   Technische Details der Speicherung und Wiederaufnahme einer
     laufenden Spielrunde
--   Umgang mit Änderungen am Dinosaurierkatalog, wenn bereits
-    gespeicherte Spielrunden existieren
+-   Umgang mit Änderungen am Dinosaurier- oder Kartenkatalog, wenn
+    bereits gespeicherte Spielrunden existieren
 -   Endgültige Auswahl der SQL-Datenbank und Konfiguration von EF Core
