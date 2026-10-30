@@ -34,14 +34,14 @@ Ihr Projekt sollte die folgenden Hauptbestandteile umfassen:
 | Tag | Aufgabe | Fälligkeit / Deadline |
 | :--- | :--- | :--- |
 | **Freitag** | **Mitteilung der Projektidee** | Bis spätestens **Freitag** teilen Sie mir Ihr gewähltes Projektthema mit. |
-| **(Über)nächste Woche (?)** | **Abschluss des Projekts** | Bereitstellung des fertigen Projekts auf GitHub. |
-| **(Über)nächste Woche (?)** | **Kurzpräsentation** | Am **letzten Tag** stellen Sie Ihr Projekt der Gruppe in ca. 5 bis 7 Minuten vor. Präsentieren Sie die Funktionalität und erläutern Sie kurz Ihre Architektur (Domänenmodell und GUI-Ansatz). |
+| **Donnerstag 5.11.** | **Abschluss des Projekts** | Bereitstellung des fertigen Projekts auf GitHub. |
+| **Freitag 6.11.** | **Kurzpräsentation** | Am **letzten Tag** stellen Sie Ihr Projekt der Gruppe in ca. 5 bis 7 Minuten vor. Präsentieren Sie die Funktionalität und erläutern Sie kurz Ihre Architektur (Domänenmodell und GUI-Ansatz). |
 
 ---
 
 ## Rahmenbedingungen
 
-* Im Rahmen des Projekts findet täglich ein kurzes **Stand-up-Meeting** statt. Dabei berichtet jeder Teilnehmer über die Arbeit des Vortags, benennt aktuelle Probleme oder Hindernisse und stellt den Plan für den aktuellen Tag vor.  
+* Im Rahmen des Projekts findet täglich ein kurzes **Stand-up-Meeting** statt. Dabei berichtet jeder Teilnehmer über die Arbeit des Vortags, benennt aktuelle Probleme oder Hindernisse und stellt den Plan für den aktuellen Tag vor (1. Was wurde fertiggestellt, 2. was ist für den Folgetag geplant, 3. welche Probleme gab es).  
 * Das Projekt wird auf **GitHub** veröffentlicht. Der entsprechende Link zum Repository wird dem Trainer zur Verfügung gestellt. Bitte zuästzlich Lösung als ZIP-Archiv mit dem gewohnten Namensschema (`Nachname-Vorname-WPF-Abschlussprojekt.zip`) einreichen.
 
 ---

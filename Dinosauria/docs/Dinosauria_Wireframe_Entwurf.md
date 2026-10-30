@@ -57,25 +57,34 @@ Die Spielübersicht besteht aus einer Kopfzeile, dem Spielziel, dem Spielfeld, d
 
 ### 3.3 Dinosaurier-Tabelle
 
-Unter dem Spielfeld befindet sich eine Tabelle. Sie zeigt nur gekaufte Dinosaurierarten sowie freigeschaltete Arten, die gekauft werden können.
+Unterhalb des Spielfelds befindet sich eine Tabelle mit allen freigeschalteten Dinosaurierarten, die bereits gekauft wurden oder zum Kauf verfügbar sind. Gesperrte Arten werden nicht angezeigt.
 
-Spalten: **Name**, **Anzahl**, **aktuelle Produktion pro Sekunde**, **Produktionszuwachs beim Kauf eines weiteren Dinosauriers**, **Kosten des nächsten Exemplars** und die Schaltfläche **„Kaufen“**.
+Die Tabelle enthält folgende Spalten: **Name**, **Anzahl**, **Produktion pro Sekunde**, **Produktionszuwachs beim Kauf eines weiteren Exemplars**, **Kosten des nächsten Exemplars** und die Schaltfläche **„Kaufen“**.
 
-Bei einer noch nicht gekauften Art beträgt die aktuelle Produktion null. Der angezeigte Zuwachs berücksichtigt die aktiven Kartenmultiplikatoren. Der Preis jedes weiteren Exemplars steigt um 15 % gegenüber dem Preis des vorherigen Exemplars.
+Die angezeigte Produktion berücksichtigt bereits alle aktiven Kartenmultiplikatoren. Bei einer freigeschalteten, aber noch nicht gekauften Dinosaurierart beträgt die aktuelle Produktion null. Der angezeigte Produktionszuwachs berücksichtigt ebenfalls die aktiven Kartenmultiplikatoren. Der Preis jedes weiteren Exemplars steigt um 15 % gegenüber dem Preis des vorherigen Exemplars.
 
-### 3.4 Statuszeile
+Rechts neben der Tabelle befindet sich ein Detailbereich, in dem zusätzliche Informationen zum ausgewählten Dinosaurier angezeigt werden: Name, Anzahl, Produktion pro Sekunde, Produktionszuwachs beim Kauf, Kosten des nächsten Exemplars sowie Erdzeitalter, Ernährung, Lebensraum und eine kurze Beschreibung.
+
+### 3.4 Kartentabelle
+
+![Kartentabelle mit Detailbereich zur ausgewählten Karte](a_clean_software_ui_screenshot_mockup_of_a_karten.png)
+*Abbildung 3: Tabelle der Karten*
+
+Die Kartentabelle befindet sich im unteren Bereich des Spielfensters auf der Registerkarte **„Karten“**. Sie wird unabhängig vom Spielfeld dargestellt und ermöglicht den Kauf freigeschalteter Karten. Gesperrte Karten werden in der Tabelle nicht angezeigt.
+
+Die Tabelle enthält folgende Spalten: **Name**, **zugehörige Dinosaurierart**, **Multiplikator**, **Kosten** und **Aktion**. Bereits gekaufte Karten sind entsprechend gekennzeichnet und können nicht erneut gekauft werden. Für verfügbare Karten wird die Schaltfläche **„Kaufen“** angezeigt. Ist das Fossilienguthaben nicht ausreichend, ist die Kaufaktion nicht verfügbar.
+
+Rechts neben der Tabelle befindet sich ein Detailbereich für die ausgewählte Karte. Er zeigt den Namen, die zugehörige Dinosaurierart, den Multiplikator, die Kosten, den Freischaltungs- bzw. Kaufstatus und eine kurze Beschreibung an. Zusätzlich werden Informationen zur zugehörigen Dinosaurierart angezeigt: Erdzeitalter, Ernährung und Lebensraum.
+
+Nach dem Kauf einer Karte werden ihr Status im Spielfeld, die Produktion der zugehörigen Dinosaurierart und die Gesamtproduktion automatisch aktualisiert.
+
+### 3.5 Statuszeile
 
 Am unteren Rand werden die bisherige Spielzeit und die insgesamt produzierten Fossilien angezeigt. Die Gesamtproduktion ist ein kumulierter Wert und wird durch Käufe nicht reduziert.
 
-## 4. Einheitliche Gestaltungsregeln
 
-- Einfache Standard-Steuerelemente ohne dekorative Rahmen oder aufwendige Effekte.
-- Keine Bilder im ersten Wireframe; Dinosaurier und Karten werden durch Kreise und Rechtecke repräsentiert.
-- Klare Beschriftungen und geradlinige Verbindungen auf dem Spielfeld.
-- Die Oberfläche wird mit WPF/XAML umgesetzt.
-
-## 5. Hinweise zur Umsetzung
+## 4. Hinweise zur Umsetzung
 
 Die Abbildungen sind schematische Entwürfe. Beispielnamen, Zahlenwerte und Spielstände dienen nur der Veranschaulichung und sind keine verbindlichen Spieldaten. Die endgültigen Abstände und Größen werden bei der Umsetzung in WPF angepasst.
 
-**Hinweis zu den Abbildungen:** Die Bilddateien müssen zusammen mit dieser Markdown-Datei im selben Ordner abgelegt werden, damit die eingebetteten Abbildungen angezeigt werden.
+
