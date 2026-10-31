@@ -1,9 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37824.6 d17.14
+VisualStudioVersion = 17.14.37824.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinosauria.Domain", "Dinosauria\Dinosauria.Domain.csproj", "{D511FC40-9633-40DC-BD13-495D01C95FDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diniosauria.Application", "Diniosauria.Application\Diniosauria.Application.csproj", "{1827EAC3-96DE-4756-A055-018FEBE8FA0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinosauria.Infrastructure", "Dinosauria.Infrastructure\Dinosauria.Infrastructure.csproj", "{971BC44F-29C0-49A3-9EB0-74D9FC94D8CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinosauria.ViewModels", "Dinosauria.ViewModels\Dinosauria.ViewModels.csproj", "{CE9F7C20-9C27-4141-B6AA-130D2F9F37BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinosauria.WPF", "Dinosauria.WPF\Dinosauria.WPF.csproj", "{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{D511FC40-9633-40DC-BD13-495D01C95FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D511FC40-9633-40DC-BD13-495D01C95FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D511FC40-9633-40DC-BD13-495D01C95FDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1827EAC3-96DE-4756-A055-018FEBE8FA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1827EAC3-96DE-4756-A055-018FEBE8FA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1827EAC3-96DE-4756-A055-018FEBE8FA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1827EAC3-96DE-4756-A055-018FEBE8FA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{971BC44F-29C0-49A3-9EB0-74D9FC94D8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{971BC44F-29C0-49A3-9EB0-74D9FC94D8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{971BC44F-29C0-49A3-9EB0-74D9FC94D8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{971BC44F-29C0-49A3-9EB0-74D9FC94D8CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE9F7C20-9C27-4141-B6AA-130D2F9F37BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE9F7C20-9C27-4141-B6AA-130D2F9F37BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE9F7C20-9C27-4141-B6AA-130D2F9F37BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE9F7C20-9C27-4141-B6AA-130D2F9F37BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
