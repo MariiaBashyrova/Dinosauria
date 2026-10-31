@@ -73,12 +73,14 @@ public class DinosauriaDbContext(DbContextOptions<DinosauriaDbContext> options)
             e.Property(d => d.Lebensraum).HasConversion<string>().HasMaxLength(30);
 
             e.HasOne(d => d.KostenRessource)
-                .WithMany()
-                .HasForeignKey(d => d.KostenRessourceID);
+    .WithMany()
+    .HasForeignKey(d => d.KostenRessourceID)
+    .OnDelete(DeleteBehavior.NoAction);
 
             e.HasOne(d => d.Produktionsressource)
                 .WithMany()
-                .HasForeignKey(d => d.ProduktionsressourceID);
+                .HasForeignKey(d => d.ProduktionsressourceID)
+                .OnDelete(DeleteBehavior.NoAction);
         });
 
         modelBuilder.Entity<Karte>(e =>
@@ -111,16 +113,50 @@ public class DinosauriaDbContext(DbContextOptions<DinosauriaDbContext> options)
             .HasDiscriminator<string>("Bedingungstyp")
             .HasValue<RessourceProduzieren>("RessourceProduzieren")
             .HasValue<DinosaurierKaufen>("DinosaurierKaufen");
-        
-        modelBuilder.Entity<Spielbedingung>()
-            .HasKey(sb => new { sb.SpielzielID, sb.AufgabenbedingungID });
 
-        modelBuilder.Entity<Dinosaurierbedingung>()
-            .HasKey(db => new { db.DinosaurierartID, db.AufgabenbedingungID });
+        modelBuilder.Entity<Spielbedingung>(e =>
+        {
+            e.HasKey(sb => new { sb.SpielzielID, sb.AufgabenbedingungID });
 
-        modelBuilder.Entity<Kartenbedingung>()
-            .HasKey(kb => new { kb.KarteID, kb.AufgabenbedingungID });
-        
-        
+            e.HasOne(sb => sb.Spielziel)
+                .WithMany(s => s.Bedingungen)
+                .HasForeignKey(sb => sb.SpielzielID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        modelBuilder.Entity<Dinosaurierbedingung>(e =>
+        {
+            e.HasKey(db => new { db.DinosaurierartID, db.AufgabenbedingungID });
+
+            e.HasOne(db => db.Dinosaurierart)
+                .WithMany(d => d.Bedingungen)
+                .HasForeignKey(db => db.DinosaurierartID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        modelBuilder.Entity<Kartenbedingung>(e =>
+        {
+            e.HasKey(kb => new { kb.KarteID, kb.AufgabenbedingungID });
+
+            e.HasOne(kb => kb.Karte)
+                .WithMany(k => k.Bedingungen)
+                .HasForeignKey(kb => kb.KarteID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+
+    }
+    
+}
+
+public static class DinosauriaDbContextFactory
+{
+    public static DinosauriaDbContext Create()
+    {
+        var options = new DbContextOptionsBuilder<DinosauriaDbContext>()
+            .UseSqlServer(DatabaseConnection.ConnectionString)
+            .Options;
+
+        return new DinosauriaDbContext(options);
     }
 }
