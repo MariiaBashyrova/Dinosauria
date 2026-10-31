@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dinosauria.Domain.Models;
 
-internal class Spielverwaltung
+public class Spielverwaltung
 {
     public List<Spieler> SpielerListe { get; set; }
 }
