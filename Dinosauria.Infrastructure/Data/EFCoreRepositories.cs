@@ -77,10 +77,12 @@ public sealed class RessourceRepository(DinosauriaDbContext context) : IRessourc
 public sealed class DinosaurierartRepository(DinosauriaDbContext context) : IDinosaurierartRepository
 {
     public IReadOnlyList<Dinosaurierart> AlleLaden() =>
-        context.Dinosaurierarten
-            .Include(d => d.KostenRessource)
-            .Include(d => d.Produktionsressource)
-            .ToList();
+    context.Dinosaurierarten
+        .Include(d => d.KostenRessource)
+        .Include(d => d.Produktionsressource)
+        .Include(d => d.Bedingungen)
+            .ThenInclude(b => b.Aufgabenbedingung)
+        .ToList();
 
     public Dinosaurierart? Finden(int dinosaurierartID) =>
         context.Dinosaurierarten
@@ -92,10 +94,12 @@ public sealed class DinosaurierartRepository(DinosauriaDbContext context) : IDin
 public sealed class KarteRepository(DinosauriaDbContext context) : IKarteRepository
 {
     public IReadOnlyList<Karte> AlleLaden() =>
-        context.Karten
-            .Include(k => k.KostenRessource)
-            .Include(k => k.Dinosaurierart)
-            .ToList();
+    context.Karten
+        .Include(k => k.KostenRessource)
+        .Include(k => k.Dinosaurierart)
+        .Include(k => k.Bedingungen)
+            .ThenInclude(b => b.Aufgabenbedingung)
+        .ToList();
 
     public Karte? Finden(int karteID) =>
         context.Karten
