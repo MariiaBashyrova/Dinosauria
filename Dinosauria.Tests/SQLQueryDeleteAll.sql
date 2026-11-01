@@ -1,0 +1,12 @@
+﻿
+USE DinosauriaDb;
+GO
+
+EXEC sp_MSforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL';
+GO
+
+EXEC sp_MSforeachtable 'DELETE FROM ?';
+GO
+
+EXEC sp_MSforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL';
+GO

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinosauria.ViewModels", "Di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinosauria.WPF", "Dinosauria.WPF\Dinosauria.WPF.csproj", "{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinosauria.Tests", "Dinosauria.Tests\Dinosauria.Tests.csproj", "{9769E727-B125-4A31-A236-747E505D8210}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC272D69-3F38-4F02-B17E-ED4EF29A20B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9769E727-B125-4A31-A236-747E505D8210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9769E727-B125-4A31-A236-747E505D8210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9769E727-B125-4A31-A236-747E505D8210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9769E727-B125-4A31-A236-747E505D8210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
