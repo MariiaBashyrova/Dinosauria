@@ -11,8 +11,14 @@ namespace Dinosauria.Infrastructure.Data;
 
 public sealed class SpielRepository(DinosauriaDbContext context) : ISpielRepository
 {
-    public IReadOnlyList<Spiel> AlleLaden() =>
-        context.Spiele.ToList();
+    public IReadOnlyList<Spiel> AlleLaden()
+    {
+        return context.Spiele
+            .Include(s => s.Spieler)
+            .Include(s => s.SpielRessourcen)
+            .Include(s => s.SpielDinosaurier)
+            .ToList();
+    }
     public Spiel? Finden(int spielID) =>
         context.Spiele
             .Include(s => s.SpielRessourcen)

@@ -276,4 +276,16 @@ public class SpielService(
             spielRepository.Aktualisieren(spiel);
         }
     }
+    public IReadOnlyList<Spieler> SpielerListeLaden()
+    {
+        return spielerRepository.AlleLaden();
+    }
+
+    public IReadOnlyList<Spiel> SpielerSpieleLaden(int spielerID)
+    {
+        return spielRepository.AlleLaden()
+            .Where(s => s.SpielerID == spielerID)
+            .OrderByDescending(s => s.Startzeitpunkt)
+            .ToList();
+    }
 }

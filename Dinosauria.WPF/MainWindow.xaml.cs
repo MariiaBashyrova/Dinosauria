@@ -1,24 +1,23 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using Dinosauria.ViewModels;
+using Dinosauria.WPF.Views;
 
-namespace Dinosauria.WPF
+namespace Dinosauria.WPF;
+
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    private readonly MainMenuViewModel _mainMenuViewModel;
+
+    public MainWindow(MainMenuViewModel viewModel)
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        _mainMenuViewModel = viewModel;
+        ShowMainMenu();
+    }
+
+    private void ShowMainMenu()
+    {
+        var view = new MainMenuView(_mainMenuViewModel);
+        MainContent.Content = view;
     }
 }

@@ -1,21 +1,52 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using Dinosauria.Infrastructure.Data;
-using System.IO;
+using Dinosauria.Application.Services;
+using Dinosauria.ViewModels;
 
 namespace Dinosauria.WPF;
 
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
+    private DinosauriaDbContext? _context;
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        using var context = DinosauriaDbContextFactory.Create();
-        DatenbankInitialisierer.Initialisieren(context);
+        _context = DinosauriaDbContextFactory.Create();
+        DatenbankInitialisierer.Initialisieren(_context);
+
         var lader = new CsvKonfigurationLader(
-       context,       Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration"));
+            _context,
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration"));
 
         lader.Laden();
 
+        var spielRepository = new SpielRepository(_context);
+        var spielerRepository = new SpielerRepository(_context);
+        var ressourceRepository = new RessourceRepository(_context);
+        var dinosaurierRepository = new DinosaurierartRepository(_context);
+        var karteRepository = new KarteRepository(_context);
+        var spielzielRepository = new SpielzielRepository(_context);
+
+        var spielService = new SpielService(
+            spielRepository,
+            spielerRepository,
+            ressourceRepository,
+            dinosaurierRepository,
+            karteRepository,
+            spielzielRepository);
+
+        var mainMenuViewModel = new MainMenuViewModel(spielService);
+
+        var mainWindow = new MainWindow(mainMenuViewModel);
+        mainWindow.Show();
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        _context?.Dispose();
+        base.OnExit(e);
     }
 }
