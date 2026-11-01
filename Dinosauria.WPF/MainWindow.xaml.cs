@@ -12,6 +12,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         _mainMenuViewModel = viewModel;
+        _mainMenuViewModel.BeendenRequested += Close;
         ShowMainMenu();
     }
 

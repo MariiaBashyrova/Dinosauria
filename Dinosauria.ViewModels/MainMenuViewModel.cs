@@ -24,6 +24,8 @@ public class MainMenuViewModel : AnsichtViewModel
 
     public RelayCommand SpielerLoeschenCommand { get; }
 
+    public RelayCommand BeendenCommand { get; }
+
     private bool SpielerHatSpiele =>
     AusgewaehlterSpieler != null &&
     _spielService.SpielerSpieleLaden(AusgewaehlterSpieler.SpielerID).Count > 0;
@@ -83,6 +85,8 @@ public class MainMenuViewModel : AnsichtViewModel
             SpielerLoeschen,
             () => AusgewaehlterSpieler != null && !SpielerHatSpiele);
         Aktualisieren();
+
+        BeendenCommand = new RelayCommand(Beenden);
     }
 
     public override void Aktualisieren()
@@ -206,4 +210,10 @@ public class MainMenuViewModel : AnsichtViewModel
         SpielerListe.Remove(AusgewaehlterSpieler);
         AusgewaehlterSpieler = null;
     }
+    private void Beenden()
+    {
+        BeendenRequested?.Invoke();
+    }
+
+    public event Action? BeendenRequested;
 }

@@ -199,8 +199,8 @@
                     Style="{StaticResource AppButton}"/>
 
             <Button Grid.Column="4"
-                    Content="Beenden"
-                    Style="{StaticResource AppButton}"/>
+                    Content="Beenden"  Command="{Binding BeendenCommand}"
+                    Style="{StaticResource AppButton}" Cursor="Hand"/>
         </Grid>
     </Grid>
 </UserControl>
