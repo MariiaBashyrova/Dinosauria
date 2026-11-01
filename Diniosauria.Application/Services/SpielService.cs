@@ -288,4 +288,28 @@ public class SpielService(
             .OrderByDescending(s => s.Startzeitpunkt)
             .ToList();
     }
+
+    public void SpielerUmbenennen(int spielerID, string neuerName)
+    {
+        if (string.IsNullOrWhiteSpace(neuerName))
+            throw new ArgumentException("Der Spielername darf nicht leer sein.");
+
+        var spieler = spielerRepository.Finden(spielerID)
+            ?? throw new InvalidOperationException("Spieler nicht gefunden.");
+
+        spieler.Name = neuerName.Trim();
+        spielerRepository.Aktualisieren(spieler);
+    }
+
+    public bool SpielerLoeschen(int spielerID)
+    {
+        var spieler = spielerRepository.Finden(spielerID)
+            ?? throw new InvalidOperationException("Spieler nicht gefunden.");
+
+        if (spielRepository.AlleLaden().Any(s => s.SpielerID == spielerID))
+            return false;
+
+        spielerRepository.Entfernen(spielerID);
+        return true;
+    }
 }

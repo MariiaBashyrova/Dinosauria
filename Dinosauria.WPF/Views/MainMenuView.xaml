@@ -64,10 +64,10 @@
             Command="{Binding SpielerHinzufuegenCommand}"
             Style="{StaticResource AppButton}"/>
 
-                            <Button Content="Umbenennen"
+                            <Button Content="Umbenennen"  Command="{Binding SpielerUmbenennenCommand}"
             Style="{StaticResource AppButton}"/>
 
-                            <Button Content="Spieler l&#246;schen"
+                            <Button Content="Spieler l&#246;schen" Command="{Binding SpielerLoeschenCommand}"
             Style="{StaticResource AppButton}"/>
                         </StackPanel>
                     </Grid>

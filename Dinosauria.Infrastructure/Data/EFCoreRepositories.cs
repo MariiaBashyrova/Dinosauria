@@ -60,6 +60,18 @@ public sealed class SpielerRepository(DinosauriaDbContext context) : ISpielerRep
         context.Spieler.Add(spieler);
         context.SaveChanges();
     }
+    public void Aktualisieren(Spieler spieler)
+    {
+        context.Spieler.Update(spieler);
+        context.SaveChanges();
+    }
+    public void Entfernen(int spielerID)
+    {
+        var spieler = Finden(spielerID);
+        if (spieler is null) return;
+        context.Spieler.Remove(spieler);
+        context.SaveChanges();
+    }
 }
 
 public sealed class SpielzielRepository(DinosauriaDbContext context) : ISpielzielRepository

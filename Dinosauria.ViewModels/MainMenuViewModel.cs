@@ -20,13 +20,24 @@ public class MainMenuViewModel : AnsichtViewModel
     public RelayCommand SpielerHinzufuegenCommand { get; }
     public RelayCommand NeuesSpielStartenCommand { get; }
 
+    public RelayCommand SpielerUmbenennenCommand { get; }
+
+    public RelayCommand SpielerLoeschenCommand { get; }
+
+    private bool SpielerHatSpiele =>
+    AusgewaehlterSpieler != null &&
+    _spielService.SpielerSpieleLaden(AusgewaehlterSpieler.SpielerID).Count > 0;
+
     public string NeuerSpielerName
     {
         get => _neuerSpielerName;
         set
         {
             if (SetProperty(ref _neuerSpielerName, value))
+            {
                 SpielerHinzufuegenCommand.RaiseCanExecuteChanged();
+                SpielerUmbenennenCommand.RaiseCanExecuteChanged();
+            }
         }
     }
 
@@ -40,6 +51,8 @@ public class MainMenuViewModel : AnsichtViewModel
                 SpielerSpieleLaden();
                 OnPropertyChanged(nameof(SpielerSpieleTitel));
                 NeuesSpielStartenCommand.RaiseCanExecuteChanged();
+                SpielerUmbenennenCommand.RaiseCanExecuteChanged();
+                SpielerLoeschenCommand.RaiseCanExecuteChanged();
             }
         }
     }
@@ -60,7 +73,15 @@ public class MainMenuViewModel : AnsichtViewModel
         NeuesSpielStartenCommand = new RelayCommand(
             NeuesSpielStarten,
             () => AusgewaehlterSpieler != null);
+       
+        SpielerUmbenennenCommand = new RelayCommand(
+            SpielerUmbenennen,
+            () => AusgewaehlterSpieler != null &&
+          !string.IsNullOrWhiteSpace(NeuerSpielerName));
 
+        SpielerLoeschenCommand = new RelayCommand(
+            SpielerLoeschen,
+            () => AusgewaehlterSpieler != null && !SpielerHatSpiele);
         Aktualisieren();
     }
 
@@ -145,5 +166,44 @@ public class MainMenuViewModel : AnsichtViewModel
                 Status = spiel.Status
             });
         }
+    }
+
+    private void SpielerUmbenennen()
+    {
+        if (AusgewaehlterSpieler == null)
+            return;
+
+        int spielerID = AusgewaehlterSpieler.SpielerID;
+
+        _spielService.SpielerUmbenennen(spielerID, NeuerSpielerName);
+
+        var ausgewaehlterSpieler = AusgewaehlterSpieler;
+        ausgewaehlterSpieler.Name = NeuerSpielerName.Trim();
+
+        _spielService.SpielerUmbenennen(
+            ausgewaehlterSpieler.SpielerID, NeuerSpielerName);
+
+        var index = SpielerListe.IndexOf(ausgewaehlterSpieler);
+
+        SpielerListe.RemoveAt(index);
+        SpielerListe.Insert(index, ausgewaehlterSpieler);
+
+        AusgewaehlterSpieler = ausgewaehlterSpieler;
+        NeuerSpielerName = "";
+    }
+
+    private void SpielerLoeschen()
+    {
+        if (AusgewaehlterSpieler == null)
+            return;
+
+        bool geloescht = _spielService.SpielerLoeschen(
+            AusgewaehlterSpieler.SpielerID);
+
+        if (!geloescht)
+            return;
+
+        SpielerListe.Remove(AusgewaehlterSpieler);
+        AusgewaehlterSpieler = null;
     }
 }

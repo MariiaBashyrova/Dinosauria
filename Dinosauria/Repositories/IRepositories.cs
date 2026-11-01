@@ -22,6 +22,8 @@ public interface ISpielerRepository
     IReadOnlyList<Spieler> AlleLaden();
     Spieler? Finden(int spielerID);
     void Hinzufuegen(Spieler spieler);
+    void Aktualisieren(Spieler spieler);
+    void Entfernen(int spielerID);
 }
 
 public interface ISpielzielRepository
