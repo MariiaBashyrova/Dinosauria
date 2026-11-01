@@ -11,6 +11,30 @@ public class SpielService(
     IKarteRepository karteRepository,
     ISpielzielRepository spielzielRepository)
 {
+    public Spieler SpielerHinzufuegen(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Der Spielername darf nicht leer sein.");
+
+        var spieler = new Spieler
+        {
+            Name = name.Trim(),
+            ErstelltAm = DateTime.Now
+        };
+
+        spielerRepository.Hinzufuegen(spieler);
+
+        return spieler;
+    }
+
+    public IReadOnlyList<Spiel> RanglisteErstellen()
+    {
+        return spielRepository.AlleLaden()
+            .Where(s => s.Status == Spielstatus.Abgeschlossen)
+            .OrderBy(s => s.Abschlussdauer)
+            .ThenBy(s => s.Endzeitpunkt)
+            .ToList();
+    }
     public Spiel NeuesSpielErstellen(int spielerID)
     {
         var spieler = spielerRepository.Finden(spielerID)
