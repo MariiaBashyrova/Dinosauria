@@ -1,0 +1,10 @@
+﻿ZielTyp;ZielSchluessel;Bedingungstyp;Beschreibung;Dinosaurier;Ressource;Anzahl;Zielmenge
+Spielziel;SPIELZIEL_1;RessourceProduzieren;10.000 Fossilien produzieren;;FOSSILIEN;;10000
+Dinosaurier;STEGOSAURUS;DinosaurierKaufen;10 Plateosaurus kaufen;PLATEOSAURUS;;10;
+Dinosaurier;TRICERATOPS;DinosaurierKaufen;10 Stegosaurus kaufen;STEGOSAURUS;;10;
+Karte;PLATEO_KARTE_1;DinosaurierKaufen;10 Plateosaurus kaufen;PLATEOSAURUS;;10;
+Karte;PLATEO_KARTE_2;DinosaurierKaufen;100 Plateosaurus kaufen;PLATEOSAURUS;;100;
+Karte;STEGO_KARTE_1;DinosaurierKaufen;10 Stegosaurus kaufen;STEGOSAURUS;;10;
+Karte;STEGO_KARTE_2;DinosaurierKaufen;100 Stegosaurus kaufen;STEGOSAURUS;;100;
+Karte;TRICERA_KARTE_1;DinosaurierKaufen;10 Triceratops kaufen;TRICERATOPS;;10;
+Karte;TRICERA_KARTE_2;DinosaurierKaufen;100 Triceratops kaufen;TRICERATOPS;;100;

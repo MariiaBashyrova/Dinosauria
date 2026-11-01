@@ -1,0 +1,7 @@
+﻿Schluessel;Name;Beschreibung;Dinosaurier;Kaufkosten;Multiplikator;FreischaltungAnzahl
+PLATEO_KARTE_1;Plateosaurus Karte 1;Produktionsbonus;PLATEOSAURUS;50;1.5;10
+PLATEO_KARTE_2;Plateosaurus Karte 2;Produktionsbonus;PLATEOSAURUS;200;3.0;100
+STEGO_KARTE_1;Stegosaurus Karte 1;Produktionsbonus;STEGOSAURUS;500;1.5;10
+STEGO_KARTE_2;Stegosaurus Karte 2;Produktionsbonus;STEGOSAURUS;2000;3.0;100
+TRICERA_KARTE_1;Triceratops Karte 1;Produktionsbonus;TRICERATOPS;5000;1.5;10
+TRICERA_KARTE_2;Triceratops Karte 2;Produktionsbonus;TRICERATOPS;20000;3.0;100

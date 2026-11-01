@@ -1,0 +1,4 @@
+﻿Schluessel;Name;Beschreibung;Erdzeitalter;Ernaehrung;Lebensraum;Kaufkosten;ProduktionProSekunde;FreischaltungAnzahl
+PLATEOSAURUS;Plateosaurus;Erster Dinosaurier;Trias;Pflanzenfresser;Land;10;1;
+STEGOSAURUS;Stegosaurus;Zweiter Dinosaurier;Jura;Pflanzenfresser;Land;100;5;10
+TRICERATOPS;Triceratops;Dritter Dinosaurier;Kreide;Pflanzenfresser;Land;1000;20;10
