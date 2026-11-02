@@ -56,8 +56,8 @@
                         <StackPanel Grid.Column="1">
                             <TextBox Text="{Binding NeuerSpielerName, UpdateSourceTrigger=PropertyChanged}"
              Height="36"
-             Margin="0,0,0,8"
-             Padding="6"
+             Margin="0,0,8,8"
+             Padding="6" ToolTip="Spielername eingeben"
              VerticalContentAlignment="Center"/>
 
                             <Button Content="Neuer Spieler"
@@ -139,7 +139,7 @@
                 </Border>
 
                 <DataGrid Grid.Row="1"
-              ItemsSource="{Binding SpielerSpiele}"
+              ItemsSource="{Binding SpielerSpiele}" SelectedItem="{Binding AusgewaehltesSpiel}"
               Style="{StaticResource AppDataGrid}"
               Margin="12"
               IsReadOnly="True"
@@ -191,11 +191,11 @@
                     Style="{StaticResource PrimaryButton}" Cursor="Hand"/>
 
             <Button Grid.Column="1"
-                    Content="Spiel fortsetzen"
+                    Content="Spiel fortsetzen" Command="{Binding SpielFortsetzenCommand}"
                     Style="{StaticResource AppButton}"/>
 
             <Button Grid.Column="2"
-                    Content="Spiel l&#246;schen"
+                    Content="Spiel l&#246;schen" Command="{Binding SpielLoeschenCommand}"
                     Style="{StaticResource AppButton}"/>
 
             <Button Grid.Column="4"

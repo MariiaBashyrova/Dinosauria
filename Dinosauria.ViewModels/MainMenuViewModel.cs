@@ -19,7 +19,9 @@ public class MainMenuViewModel : AnsichtViewModel
 
     public RelayCommand SpielerHinzufuegenCommand { get; }
     public RelayCommand NeuesSpielStartenCommand { get; }
+    public RelayCommand SpielLoeschenCommand { get; }
 
+    public RelayCommand SpielFortssetzenCommand { get; }
     public RelayCommand SpielerUmbenennenCommand { get; }
 
     public RelayCommand SpielerLoeschenCommand { get; }
@@ -59,6 +61,16 @@ public class MainMenuViewModel : AnsichtViewModel
         }
     }
 
+    private SpielUebersichtViewModel? _ausgewaehltesSpiel;
+    public SpielUebersichtViewModel? AusgewaehltesSpiel
+    {
+        get => _ausgewaehltesSpiel;
+        set
+        {
+            if (SetProperty(ref _ausgewaehltesSpiel, value))
+                SpielLoeschenCommand.RaiseCanExecuteChanged();
+        }
+    }
     public string SpielerSpieleTitel =>
         AusgewaehlterSpieler == null
             ? "Spiele des ausgewählten Spielers"
@@ -86,6 +98,7 @@ public class MainMenuViewModel : AnsichtViewModel
             () => AusgewaehlterSpieler != null && !SpielerHatSpiele);
         Aktualisieren();
 
+        SpielLoeschenCommand = new RelayCommand(SpielLoeschen, () => AusgewaehltesSpiel != null);
         BeendenCommand = new RelayCommand(Beenden);
     }
 
@@ -216,4 +229,17 @@ public class MainMenuViewModel : AnsichtViewModel
     }
 
     public event Action? BeendenRequested;
+
+    private void SpielLoeschen()
+    {
+        if (AusgewaehltesSpiel == null)
+            return;
+
+        _spielService.SpielLoeschen(AusgewaehltesSpiel.SpielID);
+
+        SpielerSpieleLaden();
+        RanglisteLaden();
+
+        AusgewaehltesSpiel = null;
+    }
 }

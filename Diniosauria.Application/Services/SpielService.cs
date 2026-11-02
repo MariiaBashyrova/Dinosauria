@@ -312,4 +312,12 @@ public class SpielService(
         spielerRepository.Entfernen(spielerID);
         return true;
     }
+
+    public void SpielLoeschen(int spielID)
+    {
+        var spiel = spielRepository.Finden(spielID)
+            ?? throw new InvalidOperationException("Spiel nicht gefunden.");
+
+        spielRepository.Entfernen(spielID);
+    }
 }
