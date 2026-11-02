@@ -53,6 +53,7 @@ public class SpielService(
             Spieler = spieler,
             Startzeitpunkt = DateTime.Now,
             Status = Spielstatus.Laufend,
+            Abschlussdauer = TimeSpan.Zero,
             Spielziel = spielziel
         };
 
@@ -110,9 +111,7 @@ public class SpielService(
 
         var spielRessource = spiel.SpielRessourcen
             .Single(x => x.RessourceID == dinosaurier.KostenRessourceID);
-
-        var kosten = dinosaurier.Kaufkosten *
-            (decimal)Math.Pow(1.15, spielDinosaurier.Anzahl);
+        decimal kosten = KostenBerechnen(dinosaurier, spielDinosaurier);
 
         if (spielRessource.Bestand < kosten)
             return false;
@@ -125,6 +124,9 @@ public class SpielService(
         SpielstatusPruefen(spielID);
         return true;
     }
+
+    
+
     public void RessourcenProduzieren(int spielID, double vergangeneSekunden)
     {
         
@@ -135,19 +137,13 @@ public class SpielService(
         foreach (var spielDinosaurier in spiel.SpielDinosaurier
             .Where(x => x.Anzahl > 0))
         {
-            var dinosaurier = spielDinosaurier.Dinosaurierart;
+            
 
-            var multiplikator = spiel.SpielKarten
-                .Where(k => k.IstGekauft &&
-                k.Karte.DinosaurierartID == dinosaurier.DinosaurierartID)
-                .Aggregate(1m, (ergebnis, k) => ergebnis * (decimal)k.Karte.Multiplikator);
-
-            var produktion = dinosaurier.ProduktionProSekunde *
-                             spielDinosaurier.Anzahl * multiplikator;
+            var produktion = DinosaurierProduktionBerechnen(spiel, spielDinosaurier); 
             var menge = (decimal)(produktion * (decimal)vergangeneSekunden);
 
             var ressource = spiel.SpielRessourcen
-                .Single(x => x.RessourceID == dinosaurier.ProduktionsressourceID);
+                .Single(x => x.RessourceID == spielDinosaurier.Dinosaurierart.ProduktionsressourceID);
 
             ressource.Bestand += menge;
             ressource.GesamtProduziert += menge;
@@ -324,5 +320,48 @@ public class SpielService(
             ?? throw new InvalidOperationException("Spiel nicht gefunden.");
 
         spielRepository.Entfernen(spielID);
+    }
+
+    public decimal DinosaurierProduktionBerechnen(Spiel spiel, SpielDinosaurier spielDinosaurier)
+    {
+        var dinosaurier = spielDinosaurier.Dinosaurierart;
+        decimal multiplikator = ProduktionMultiplikator(spiel, spielDinosaurier);
+
+        return dinosaurier.ProduktionProSekunde * spielDinosaurier.Anzahl * multiplikator;
+    }
+
+    public decimal DinosaurierProduktionBerechnenProStueck(Spiel spiel, SpielDinosaurier spielDinosaurier)
+    {
+        var dinosaurier = spielDinosaurier.Dinosaurierart;
+        decimal multiplikator = ProduktionMultiplikator(spiel, spielDinosaurier);
+
+        return dinosaurier.ProduktionProSekunde * multiplikator;
+    }
+
+    private static decimal ProduktionMultiplikator(Spiel spiel, SpielDinosaurier spielDinosaurier)
+    {
+        return spiel.SpielKarten
+            .Where(k => k.IstGekauft &&
+                        k.Karte.DinosaurierartID == spielDinosaurier.DinosaurierartID)
+            .Aggregate(1m, (ergebnis, k) => ergebnis * (decimal)k.Karte.Multiplikator);
+    }
+
+    public decimal KostenBerechnen(Dinosaurierart dinosaurier, SpielDinosaurier spielDinosaurier)
+    {
+        return Math.Round(dinosaurier.Kaufkosten *
+            (decimal)Math.Pow(1.15, spielDinosaurier.Anzahl),2);
+    }
+
+    public void SpielzeitSpeichern(int spielID, TimeSpan spielzeit)
+    {
+        var spiel = spielRepository.Finden(spielID)
+            ?? throw new InvalidOperationException("Spiel nicht gefunden.");
+
+        spiel.Abschlussdauer = spielzeit;
+        spielRepository.Aktualisieren(spiel);
+    }
+    public Spielziel? SpielzielLaden(int spielzielID)
+    {
+        return spielzielRepository.Finden(spielzielID);
     }
 }

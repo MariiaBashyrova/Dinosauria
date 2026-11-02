@@ -20,6 +20,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -40,19 +41,28 @@
             <TextBlock Grid.Column="4"
                        Text="{Binding Fossilien, StringFormat='Fossilien: {0:N0}'}"
                        Style="{StaticResource GameHeaderText}"/>
+            <Border Grid.Column="5" Style="{StaticResource HeaderSeparator}"/>
 
-            <Border Grid.Column="5"
-                    BorderThickness="0"
-                    Background="Transparent"/>
+            <TextBlock Grid.Column="6"    Text="{Binding GesamtProduktion, StringFormat='Produktion: +{0:N2} / Sek.'}"      Style="{StaticResource GameHeaderText}"/>
 
-            <StackPanel Grid.Column="6"
-                        VerticalAlignment="Center"
-                        Margin="12,0,20,0">
+
+            <StackPanel Grid.Column="7"
+            VerticalAlignment="Center"
+            Margin="12,0,20,0">
                 <TextBlock Text="{Binding SpielzielName, StringFormat='Ziel: {0}'}"
-                           Style="{StaticResource GameHeaderText}"/>
+               Style="{StaticResource GameHeaderText}"/>
+
+                <ProgressBar Value="{Binding SpielzielFortschritt, Mode=OneWay}"
+             Maximum="100"
+             Height="6"
+             Width="140"
+             Margin="0,4,0,0"/>
+
+                <TextBlock Text="{Binding SpielzielFortschrittText}"
+               Style="{StaticResource GameHeaderText}"/>
             </StackPanel>
 
-            <Button Grid.Column="7"
+            <Button Grid.Column="8"
                     Content="Hauptmen&#252;"
                     Style="{StaticResource AppButton}"
                     Margin="0"
@@ -87,28 +97,36 @@
                         <DataGrid ItemsSource="{Binding DinosaurierListe}"
                                   Style="{StaticResource AppDataGrid}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Name"
-                                                    Binding="{Binding Dinosaurierart.Name}"
-                                                    Width="2*"/>
+                                <DataGridTextColumn Header="Name"  Binding="{Binding Name}"  ElementStyle="{StaticResource DataGridTextStyle}" Width="2*"/>
 
-                                <DataGridTextColumn Header="Anzahl"
-                                                    Binding="{Binding Anzahl}"
-                                                    Width="*"/>
+                                <DataGridTextColumn Header="Anzahl"   Binding="{Binding Anzahl}" ElementStyle="{StaticResource DataGridTextStyle}" Width="*"/>
 
-                                <DataGridTextColumn Header="Produktion / Sek."
-                                                    Binding="{Binding Dinosaurierart.ProduktionProSekunde}"
-                                                    Width="1.5*"/>
+                                <DataGridTextColumn Header="Produktion / Sek."  Binding="{Binding ProduktionProSekunde}" ElementStyle="{StaticResource DataGridTextStyle}" Width="1.5*"/>
+
+                                <DataGridTextColumn Header=" + pro Kauf"  Binding="{Binding proKauf}" ElementStyle="{StaticResource DataGridTextStyle}" Width="*"/>
+
+                                <DataGridTextColumn Header="Kosten"  Binding="{Binding Kosten}" ElementStyle="{StaticResource DataGridTextStyle}" Width="*"/>
 
                                 <DataGridTemplateColumn Header="Aktion" Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Content="Kaufen"
+                                            <Button Content="Kaufen" Command="{Binding KaufenCommand}"
                                                     Style="{StaticResource SmallAppButton}"
-                                                    IsEnabled="False"/>
+                                                    />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IstGekauft}" Value="True">
+                                            <Setter Property="Background" Value="#DDF2DD"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
                         </DataGrid>
                     </TabItem>
 
@@ -166,13 +184,13 @@
         <Border Grid.Row="4"
                 Style="{StaticResource GameStatusBorder}">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Spielzeit: 00:00:00"
-                           Style="{StaticResource GameStatusText}"/>
+                <TextBlock Text="{Binding Spielzeit, StringFormat='Spielzeit: {0}'}"
+               Style="{StaticResource GameStatusText}"/>
 
                 <Border Style="{StaticResource HeaderSeparator}"/>
 
-                <TextBlock Text="Gesamt produzierte Fossilien: 0"
-                           Style="{StaticResource GameStatusText}"/>
+                <TextBlock Text="{Binding GesamtProduziert, StringFormat='Gesamt produzierte Fossilien: {0:N0}'}"
+               Style="{StaticResource GameStatusText}"/>
             </StackPanel>
         </Border>
 

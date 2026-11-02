@@ -85,7 +85,10 @@ public sealed class SpielzielRepository(DinosauriaDbContext context) : ISpielzie
         context.Spielziele.ToList();
 
     public Spielziel? Finden(int spielzielID) =>
-        context.Spielziele.FirstOrDefault(s => s.SpielzielID == spielzielID);
+    context.Spielziele
+        .Include(s => s.Bedingungen)
+            .ThenInclude(b => b.Aufgabenbedingung)
+        .FirstOrDefault(s => s.SpielzielID == spielzielID);
 }
 
 public sealed class RessourceRepository(DinosauriaDbContext context) : IRessourceRepository

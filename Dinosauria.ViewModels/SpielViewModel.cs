@@ -10,38 +10,97 @@ public class SpielViewModel : AnsichtViewModel
     private readonly SpielService _spielService;
     private readonly int _spielID;
     private Spiel? _spiel;
-
+    private TimeSpan _spielzeit;
     public override string Titel => "Spielübersicht";
-
+    public string Spielzeit => _spielzeit.ToString(@"hh\:mm\:ss");
     public string Spielername => _spiel?.Spieler.Name ?? "";
     public decimal Fossilien => _spiel?.SpielRessourcen.FirstOrDefault()?.Bestand ?? 0;
+
+    public decimal GesamtProduziert => _spiel?.SpielRessourcen.FirstOrDefault()?.GesamtProduziert ?? 0;
     public string SpielzielName => _spiel?.Spielziel.Name ?? "";
 
-    public ObservableCollection<SpielDinosaurier> DinosaurierListe { get; } = [];
+    public decimal GesamtProduktion => _spiel?.SpielDinosaurier
+    .Where(d => d.Anzahl > 0)
+    .Sum(d => _spielService.DinosaurierProduktionBerechnen(_spiel, d)) ?? 0;
+    public double SpielzielFortschritt
+    {
+        get
+        {
+            var spielziel = _spielService.SpielzielLaden(_spiel!.SpielzielID);
+            var bedingung = spielziel?.Bedingungen
+                .Select(b => b.Aufgabenbedingung)
+                .OfType<RessourceProduzieren>()
+                .FirstOrDefault();
+
+            if (bedingung == null)
+                return 0;
+
+            var produziert = _spiel.SpielRessourcen
+                .FirstOrDefault(r => r.RessourceID == bedingung.RessourceID)?
+                .GesamtProduziert ?? 0;
+
+            return Math.Min(100, (double)(produziert / bedingung.Zielmenge * 100));
+        }
+    }
+    public string SpielzielFortschrittText =>
+    $"{SpielzielFortschritt:N1} %";
+    public string SpielzielAnzeige => SpielzielName;
+    public ObservableCollection<SpielDinosaurierViewModel> DinosaurierListe { get; } = [];
     public ObservableCollection<SpielKarte> KartenListe { get; } = [];
 
     public SpielViewModel(SpielService spielService, int spielID)
     {
         _spielService = spielService;
         _spielID = spielID;
+        
+        _spielzeit = _spielService.SpielLaden(_spielID).Abschlussdauer ?? TimeSpan.Zero;
+       
         Aktualisieren();
+        
     }
 
+    
     public override void Aktualisieren()
     {
         _spiel = _spielService.SpielLaden(_spielID);
-
+        
         DinosaurierListe.Clear();
         KartenListe.Clear();
 
-        foreach (var dinosaurier in _spiel.SpielDinosaurier)
-            DinosaurierListe.Add(dinosaurier);
+        foreach (var dinosaurier in _spiel.SpielDinosaurier.Where(d => d.IstFreigeschaltet))
+            DinosaurierListe.Add(new SpielDinosaurierViewModel(_spiel, dinosaurier, _spielService, DinosaurierKaufen));
 
-        foreach (var karte in _spiel.SpielKarten)
+        foreach (var karte in _spiel.SpielKarten.Where(k => k.IstFreigeschaltet))
             KartenListe.Add(karte);
 
         OnPropertyChanged(nameof(Spielername));
         OnPropertyChanged(nameof(Fossilien));
         OnPropertyChanged(nameof(SpielzielName));
+    }
+    private void DinosaurierKaufen(int dinosaurierartID)
+    {
+        if (_spielService.DinosaurierKaufen(_spielID, dinosaurierartID))
+            Aktualisieren();
+    }
+
+    public void RessourcenAktualisieren(double vergangeneSekunden)
+    {
+        _spielService.RessourcenProduzieren(_spielID, vergangeneSekunden);
+        OnPropertyChanged(nameof(SpielzielFortschritt));
+        OnPropertyChanged(nameof(SpielzielFortschrittText));
+        OnPropertyChanged(nameof(GesamtProduktion));
+        OnPropertyChanged(nameof(GesamtProduziert));
+        Aktualisieren();
+    }
+
+    public void SpielzeitAktualisieren(double vergangeneSekunden)
+    {
+        _spielzeit += TimeSpan.FromSeconds(vergangeneSekunden);
+        OnPropertyChanged(nameof(Spielzeit));
+    }
+
+    public void SpielzeitSpeichern()
+    {
+        _spielService.SpielzeitSpeichern(_spielID, _spielzeit);
     }
 }

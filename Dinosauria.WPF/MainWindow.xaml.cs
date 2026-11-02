@@ -3,7 +3,6 @@ using System.Windows;
 using Dinosauria.Application.Services;
 using Dinosauria.ViewModels;
 using Dinosauria.WPF.Views;
-using Dinosauria.Application.Services;
 
 namespace Dinosauria.WPF;
 
@@ -27,6 +26,7 @@ public partial class MainWindow : Window
 
     private void ShowMainMenu()
     {
+        _mainMenuViewModel.Aktualisieren();
         MainContent.Content = new MainMenuView(_mainMenuViewModel);
     }
 

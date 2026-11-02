@@ -142,6 +142,7 @@
         <Setter Property="ColumnHeaderHeight" Value="42"/>
         <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource PanelBorderBrush}"/>
         <Setter Property="VerticalGridLinesBrush" Value="{StaticResource PanelBorderBrush}"/>
+        
     </Style>
 
     <Style TargetType="DataGridColumnHeader">
@@ -161,7 +162,11 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
     </Style>
-
+    <Style x:Key="DataGridTextStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
     <Style TargetType="DataGridRow">
         <Setter Property="Height" Value="42"/>
         <Setter Property="Background" Value="White"/>
@@ -252,6 +257,15 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="AvailableGameRow" TargetType="DataGridRow">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+    </Style>
+
+    <Style x:Key="PurchasedGameRow" TargetType="DataGridRow">
+        <Setter Property="Background" Value="#FFE2EFDF"/>
+        <Setter Property="Foreground" Value="#FF314E41"/>
     </Style>
 
 </ResourceDictionary>
