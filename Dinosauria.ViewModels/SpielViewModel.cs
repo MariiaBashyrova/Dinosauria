@@ -18,7 +18,7 @@ public class SpielViewModel : AnsichtViewModel
 
     public decimal GesamtProduziert => _spiel?.SpielRessourcen.FirstOrDefault()?.GesamtProduziert ?? 0;
     public string SpielzielName => _spiel?.Spielziel.Name ?? "";
-
+    public RelayCommand KarteKaufenCommand { get; }
     public decimal GesamtProduktion => _spiel?.SpielDinosaurier
     .Where(d => d.Anzahl > 0)
     .Sum(d => _spielService.DinosaurierProduktionBerechnen(_spiel, d)) ?? 0;
@@ -47,12 +47,23 @@ public class SpielViewModel : AnsichtViewModel
     public string SpielzielAnzeige => SpielzielName;
     public ObservableCollection<SpielDinosaurierViewModel> DinosaurierListe { get; } = [];
     public ObservableCollection<SpielKarte> KartenListe { get; } = [];
-
+    private SpielKarte? _ausgewaehlteKarte;
+    public SpielKarte? AusgewaehlteKarte
+    {
+        get => _ausgewaehlteKarte;
+        set
+        {
+            if (SetProperty(ref _ausgewaehlteKarte, value))
+                KarteKaufenCommand.RaiseCanExecuteChanged();
+        }
+    }
     public SpielViewModel(SpielService spielService, int spielID)
     {
         _spielService = spielService;
         _spielID = spielID;
-        
+        KarteKaufenCommand = new RelayCommand(   () => KarteKaufen(AusgewaehlteKarte!.KarteID),    
+            () => AusgewaehlteKarte != null && AusgewaehlteKarte.IstFreigeschaltet &&
+          !AusgewaehlteKarte.IstGekauft &&  Fossilien >= AusgewaehlteKarte.Karte.Kaufkosten);
         _spielzeit = _spielService.SpielLaden(_spielID).Abschlussdauer ?? TimeSpan.Zero;
        
         Aktualisieren();
@@ -83,9 +94,17 @@ public class SpielViewModel : AnsichtViewModel
             Aktualisieren();
     }
 
+    private void KarteKaufen(int karteID)
+    {
+        if (_spielService.KarteKaufen(_spielID, karteID))
+            Aktualisieren();
+        KarteKaufenCommand.RaiseCanExecuteChanged();
+    }
+
     public void RessourcenAktualisieren(double vergangeneSekunden)
     {
         _spielService.RessourcenProduzieren(_spielID, vergangeneSekunden);
+        
         OnPropertyChanged(nameof(SpielzielFortschritt));
         OnPropertyChanged(nameof(SpielzielFortschrittText));
         OnPropertyChanged(nameof(GesamtProduktion));
