@@ -12,7 +12,7 @@ public class MainMenuViewModel : AnsichtViewModel
     private string _neuerSpielerName = "";
 
     public override string Titel => "Hauptmenü";
-
+    public event Action<int>? SpielOeffnenRequested;
     public ObservableCollection<Spieler> SpielerListe { get; } = [];
     public ObservableCollection<RanglistenEintragViewModel> Rangliste { get; } = [];
     public ObservableCollection<SpielUebersichtViewModel> SpielerSpiele { get; } = [];
@@ -21,7 +21,7 @@ public class MainMenuViewModel : AnsichtViewModel
     public RelayCommand NeuesSpielStartenCommand { get; }
     public RelayCommand SpielLoeschenCommand { get; }
 
-    public RelayCommand SpielFortssetzenCommand { get; }
+    public RelayCommand SpielFortsetzenCommand { get; }
     public RelayCommand SpielerUmbenennenCommand { get; }
 
     public RelayCommand SpielerLoeschenCommand { get; }
@@ -68,7 +68,10 @@ public class MainMenuViewModel : AnsichtViewModel
         set
         {
             if (SetProperty(ref _ausgewaehltesSpiel, value))
+            {
                 SpielLoeschenCommand.RaiseCanExecuteChanged();
+                SpielFortsetzenCommand.RaiseCanExecuteChanged();
+            }
         }
     }
     public string SpielerSpieleTitel =>
@@ -99,6 +102,7 @@ public class MainMenuViewModel : AnsichtViewModel
         Aktualisieren();
 
         SpielLoeschenCommand = new RelayCommand(SpielLoeschen, () => AusgewaehltesSpiel != null);
+        SpielFortsetzenCommand = new RelayCommand(SpielFortsetzen,   () => AusgewaehltesSpiel != null &&  AusgewaehltesSpiel.Status == Spielstatus.Laufend);
         BeendenCommand = new RelayCommand(Beenden);
     }
 
@@ -132,9 +136,9 @@ public class MainMenuViewModel : AnsichtViewModel
         if (AusgewaehlterSpieler == null)
             return;
 
-        _spielService.NeuesSpielErstellen(AusgewaehlterSpieler.SpielerID);
+        var spiel = _spielService.NeuesSpielErstellen(AusgewaehlterSpieler.SpielerID);
 
-        SpielerSpieleLaden();
+        SpielOeffnenRequested?.Invoke(spiel.SpielID);
     }
 
     private void RanglisteLaden()
@@ -241,5 +245,11 @@ public class MainMenuViewModel : AnsichtViewModel
         RanglisteLaden();
 
         AusgewaehltesSpiel = null;
+    }
+    private void SpielFortsetzen()
+    {
+        if (AusgewaehltesSpiel == null) return;
+
+        SpielOeffnenRequested?.Invoke(AusgewaehltesSpiel.SpielID);
     }
 }

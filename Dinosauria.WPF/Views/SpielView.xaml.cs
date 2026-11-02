@@ -1,19 +1,21 @@
-using System.Windows;
+using System;
 using System.Windows.Controls;
+using Dinosauria.ViewModels;
 
 namespace Dinosauria.WPF.Views;
 
 public partial class SpielView : UserControl
 {
-    public event RoutedEventHandler? HauptmenueRequested;
+    public event Action? HauptmenueRequested;
 
-    public SpielView()
+    public SpielView(SpielViewModel viewModel)
     {
         InitializeComponent();
+        DataContext = viewModel;
     }
 
-    private void Hauptmenue_Click(object sender, RoutedEventArgs e)
+    private void Hauptmenue_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        HauptmenueRequested?.Invoke(this, e);
+        HauptmenueRequested?.Invoke();
     }
 }

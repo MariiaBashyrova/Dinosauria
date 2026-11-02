@@ -40,7 +40,7 @@ public partial class App : System.Windows.Application
 
         var mainMenuViewModel = new MainMenuViewModel(spielService);
 
-        var mainWindow = new MainWindow(mainMenuViewModel);
+        var mainWindow = new MainWindow(mainMenuViewModel, spielService);
         mainWindow.Show();
     }
 

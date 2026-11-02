@@ -88,6 +88,11 @@ public class SpielService(
         return spiel;
     }
 
+    public Spiel SpielLaden(int spielID)
+    {
+        return spielRepository.Finden(spielID)
+            ?? throw new InvalidOperationException("Spiel nicht gefunden.");
+    }
     public bool DinosaurierKaufen(int spielID, int dinosaurierartID)
     {
         var spiel = spielRepository.Finden(spielID)

@@ -20,11 +20,16 @@ public sealed class SpielRepository(DinosauriaDbContext context) : ISpielReposit
             .ToList();
     }
     public Spiel? Finden(int spielID) =>
-        context.Spiele
-            .Include(s => s.SpielRessourcen)
-            .Include(s => s.SpielDinosaurier)
-            .Include(s => s.SpielKarten)
-            .FirstOrDefault(s => s.SpielID == spielID);
+    context.Spiele
+        .Include(s => s.Spieler)
+        .Include(s => s.Spielziel)
+        .Include(s => s.SpielRessourcen)
+            .ThenInclude(sr => sr.Ressource)
+        .Include(s => s.SpielDinosaurier)
+            .ThenInclude(sd => sd.Dinosaurierart)
+        .Include(s => s.SpielKarten)
+            .ThenInclude(sk => sk.Karte)
+        .FirstOrDefault(s => s.SpielID == spielID);
 
     public void Hinzufuegen(Spiel spiel)
     {
