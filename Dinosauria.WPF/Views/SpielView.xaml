@@ -2,8 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Background="{StaticResource WindowBackgroundBrush}">
-
-    <Grid Margin="16">
+    
+        <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -91,11 +91,11 @@
             <!-- Tabellen -->
             <Border Style="{StaticResource GamePanelBorder}"
                     Margin="0,0,8,0">
-                <TabControl Style="{StaticResource GameTabControl}">
+                <TabControl Style="{StaticResource GameTabControl}" SelectedIndex="{Binding AktiveTabelle, Mode=TwoWay}">
 
                     <TabItem Header="Dinosaurier">
-                        <DataGrid ItemsSource="{Binding DinosaurierListe}"
-                                  Style="{StaticResource AppDataGrid}">
+                        <DataGrid ItemsSource="{Binding DinosaurierListe}" SelectedItem="{Binding AusgewaehlterDinosaurier}"
+                                  Style="{StaticResource AppDataGrid}" x:Name="DinosaurierDataGrid">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name"  Binding="{Binding Name}"  ElementStyle="{StaticResource DataGridTextStyle}" Width="2*"/>
 
@@ -132,30 +132,39 @@
 
                     <TabItem Header="Karten">
                         <DataGrid ItemsSource="{Binding KartenListe}" SelectedItem="{Binding AusgewaehlteKarte}"
-                                  Style="{StaticResource AppDataGrid}">
+                                  Style="{StaticResource AppDataGrid}" x:Name="KartenDataGrid">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name"  ElementStyle="{StaticResource DataGridTextStyle}"
-                                                    Binding="{Binding Karte.Name}"
+                                                    Binding="{Binding Name}"
                                                     Width="2*"/>
 
                                 <DataGridTextColumn Header="Dinosaurierart"  ElementStyle="{StaticResource DataGridTextStyle}"
-                                                    Binding="{Binding Karte.Dinosaurierart.Name}"
+                                                    Binding="{Binding Dinosaurierart.Name}"
                                                     Width="2*"/>
 
                                 <DataGridTextColumn Header="Multiplikator"  ElementStyle="{StaticResource DataGridTextStyle}"
-                                                    Binding="{Binding Karte.Multiplikator}"
+                                                    Binding="{Binding Multiplikator, StringFormat=N1}"
                                                     Width="*"/>
                                 <DataGridTextColumn Header="Kosten"  ElementStyle="{StaticResource DataGridTextStyle}"
-                                                    Binding="{Binding Karte.Kaufkosten, StringFormat=N2}"  Width="*"/>
+                                                    Binding="{Binding Kosten, StringFormat=N2}"  Width="*"/>
                                 <DataGridTemplateColumn Header="Aktion" Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Content="Kaufen" Command="{Binding DataContext.KarteKaufenCommand,  
-                                                RelativeSource={RelativeSource AncestorType=DataGrid}}" Style="{StaticResource SmallAppButton}"    />
+                                            <Button Content="{Binding KarteKaufenCommandContent}" Command="{Binding KarteKaufenCommand}" Style="{StaticResource SmallAppButton}"    />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IstGekauft}" Value="True">
+                                            <Setter Property="Background" Value="#DDF2DD"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
                         </DataGrid>
                     </TabItem>
 
@@ -166,17 +175,119 @@
             <Border Grid.Column="1"
                     Style="{StaticResource GamePanelBorder}"
                     Padding="14">
+                
+                    
+
+                    <!-- Dinosaurier-Details -->
                 <StackPanel>
                     <TextBlock Text="Details"
-                               Style="{StaticResource DetailTitleText}"/>
+               Style="{StaticResource DetailTitleText}"/>
 
                     <Separator Margin="0,8,0,12"
-                               Background="{StaticResource PanelBorderBrush}"/>
+               Background="{StaticResource PanelBorderBrush}"/>
 
-                    <TextBlock Text="Waehle einen Dinosaurier oder eine Karte aus."
-                               Style="{StaticResource DetailText}"
-                               TextWrapping="Wrap"/>
+                    <!-- Dinosaurier-Details -->
+                    <StackPanel DataContext="{Binding AusgewaehlterDinosaurier}">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DataContext.AktiveTabelle,
+                        RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                 Value="0">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <TextBlock Text="{Binding Name}"
+                   Style="{StaticResource DetailTitleText}"/>
+
+                        <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Beschreibung}"
+                   Style="{StaticResource DetailText}"
+                   TextWrapping="Wrap"/>
+
+                        <Separator Margin="0,8,0,8"/>
+
+                        <TextBlock Text="{Binding Anzahl, StringFormat=Anzahl: {0}}"
+                   Style="{StaticResource DetailText}"/>
+
+                        <TextBlock Text="{Binding ProduktionProSekunde, StringFormat=Produktion / Sek.: {0:N2}}"
+                   Style="{StaticResource DetailText}"/>
+
+                        <TextBlock Text="{Binding proKauf, StringFormat=Zuwachs pro Kauf: {0}}"
+                   Style="{StaticResource DetailText}"/>
+
+                        <TextBlock Text="{Binding Kosten, StringFormat=Kosten: {0:N2} Fossilien}"
+                   Style="{StaticResource DetailText}"/>
+
+                        <Separator Margin="0,8,0,8"/>
+
+                        <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Erdzeitalter, StringFormat=Epoche: {0}}"
+                   Style="{StaticResource DetailText}"/>
+
+                        <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Ernaehrung, StringFormat=Ernaehrung: {0}}"
+                   Style="{StaticResource DetailText}"/>
+
+                        <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Lebensraum, StringFormat=Lebensraum: {0}}"
+                   Style="{StaticResource DetailText}"/>
+                    </StackPanel>
+
+                    <!-- Karten-Details -->
+                    <StackPanel DataContext="{Binding AusgewaehlteKarte}">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DataContext.AktiveTabelle,
+                        RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                 Value="1">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <TextBlock Text="{Binding Karte.Karte.Name}"
+                   Style="{StaticResource DetailTitleText}"/>
+
+                        <TextBlock Text="{Binding Karte.Karte.Beschreibung}"
+                   Style="{StaticResource DetailText}"
+                   TextWrapping="Wrap"/>
+
+                        <Separator Margin="0,8,0,8"/>
+
+                        <TextBlock Text="{Binding Karte.Karte.Dinosaurierart.Name, StringFormat=Dinosaurier: {0}}"
+                   Style="{StaticResource DetailText}"/>
+
+                        <TextBlock Text="{Binding Karte.Karte.Multiplikator, StringFormat=Multiplikator: *{0}}"
+                   Style="{StaticResource DetailText}"/>
+
+                        <TextBlock Text="{Binding Karte.Karte.Kaufkosten, StringFormat=Kosten: {0:N2} Fossilien}"
+                   Style="{StaticResource DetailText}"/>
+                    </StackPanel>
+
+                    <!-- Keine Auswahl -->
+                    <TextBlock Text="Waehle einen Dinosaurier oder eine Karte aus."            TextWrapping="Wrap">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding AusgewaehlterDinosaurier}" Value="{x:Null}"/>
+                                            <Condition Binding="{Binding AusgewaehlteKarte}" Value="{x:Null}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </StackPanel>
+
+
             </Border>
         </Grid>
 

@@ -17,6 +17,8 @@ public class SpielDinosaurierViewModel(Spiel spiel,
 {
     public SpielDinosaurier Dinosaurier { get; } = dinosaurier;
     public string Name => Dinosaurier.Dinosaurierart.Name;
+
+    public int DinosaurierartID => Dinosaurier.Dinosaurierart.DinosaurierartID;
     public int Anzahl => Dinosaurier.Anzahl;
     public decimal ProduktionProSekunde { get; } = _spielService.DinosaurierProduktionBerechnen(spiel, dinosaurier);
     public bool IstGekauft => Anzahl > 0;

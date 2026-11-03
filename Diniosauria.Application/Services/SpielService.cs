@@ -44,7 +44,7 @@ public class SpielService(
         var dinosaurier = dinosaurierRepository.AlleLaden();
         var karten = karteRepository.AlleLaden();
         var spielziel = spielzielRepository.AlleLaden()
-            .Single(x => x.Name == "Fossiliensammler");
+            .Single(x => x.SpielzielID == 17);
 
         var fossilien = ressourcen.Single(x => x.Name == "Fossilien");
 

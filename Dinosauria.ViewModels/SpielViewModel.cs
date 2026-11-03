@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Dinosauria.Application.Services;
 using Dinosauria.Domain.Models;
 using Dinosauria.ViewModels.Basic;
@@ -18,7 +19,7 @@ public class SpielViewModel : AnsichtViewModel
 
     public decimal GesamtProduziert => _spiel?.SpielRessourcen.FirstOrDefault()?.GesamtProduziert ?? 0;
     public string SpielzielName => _spiel?.Spielziel.Name ?? "";
-    public RelayCommand KarteKaufenCommand { get; }
+    
     public decimal GesamtProduktion => _spiel?.SpielDinosaurier
     .Where(d => d.Anzahl > 0)
     .Sum(d => _spielService.DinosaurierProduktionBerechnen(_spiel, d)) ?? 0;
@@ -46,25 +47,41 @@ public class SpielViewModel : AnsichtViewModel
     $"{SpielzielFortschritt:N1} %";
     public string SpielzielAnzeige => SpielzielName;
     public ObservableCollection<SpielDinosaurierViewModel> DinosaurierListe { get; } = [];
-    public ObservableCollection<SpielKarte> KartenListe { get; } = [];
-    private SpielKarte? _ausgewaehlteKarte;
-    public SpielKarte? AusgewaehlteKarte
+    public ObservableCollection<SpielKarteViewModel> KartenListe { get; } = [];
+
+    private int _aktiveTabelle;
+    public int AktiveTabelle
+    {
+        get => _aktiveTabelle;
+        set => SetProperty(ref _aktiveTabelle, value);
+    }
+
+    private SpielDinosaurierViewModel? _ausgewaehlterDinosaurier;
+    public SpielDinosaurierViewModel? AusgewaehlterDinosaurier
+    {
+        get => _ausgewaehlterDinosaurier;
+        set
+        {
+            if (!SetProperty(ref _ausgewaehlterDinosaurier, value)) return;
+            
+        }
+    }
+
+    private SpielKarteViewModel? _ausgewaehlteKarte;
+    public SpielKarteViewModel? AusgewaehlteKarte
     {
         get => _ausgewaehlteKarte;
         set
         {
-            if (SetProperty(ref _ausgewaehlteKarte, value))
-                KarteKaufenCommand.RaiseCanExecuteChanged();
+            if (!SetProperty(ref _ausgewaehlteKarte, value)) return;
+           
         }
     }
     public SpielViewModel(SpielService spielService, int spielID)
     {
         _spielService = spielService;
         _spielID = spielID;
-        KarteKaufenCommand = new RelayCommand(   () => KarteKaufen(AusgewaehlteKarte!.KarteID),    
-            () => AusgewaehlteKarte != null && AusgewaehlteKarte.IstFreigeschaltet &&
-          !AusgewaehlteKarte.IstGekauft &&  Fossilien >= AusgewaehlteKarte.Karte.Kaufkosten);
-        _spielzeit = _spielService.SpielLaden(_spielID).Abschlussdauer ?? TimeSpan.Zero;
+       
        
         Aktualisieren();
         
@@ -74,19 +91,33 @@ public class SpielViewModel : AnsichtViewModel
     public override void Aktualisieren()
     {
         _spiel = _spielService.SpielLaden(_spielID);
-        
-        DinosaurierListe.Clear();
-        KartenListe.Clear();
 
-        foreach (var dinosaurier in _spiel.SpielDinosaurier.Where(d => d.IstFreigeschaltet))
-            DinosaurierListe.Add(new SpielDinosaurierViewModel(_spiel, dinosaurier, _spielService, DinosaurierKaufen));
+        if (AktiveTabelle==0)
+        {   
+            var ausgewaehlterDinosaurierID = AusgewaehlterDinosaurier?.Dinosaurier.DinosaurierartID;
+            DinosaurierListe.Clear();
+            foreach (var dinosaurier in _spiel.SpielDinosaurier.Where(d => d.IstFreigeschaltet))
+                DinosaurierListe.Add(new SpielDinosaurierViewModel(_spiel, dinosaurier, _spielService, DinosaurierKaufen));
+            if (ausgewaehlterDinosaurierID != null) AusgewaehlterDinosaurier = DinosaurierListe.FirstOrDefault(d => d.DinosaurierartID == ausgewaehlterDinosaurierID);
+        }
+        else if (AktiveTabelle==1)
+        {
+            var ausgewaehlteKarteID = AusgewaehlteKarte?.Karte.KarteID;
+            KartenListe.Clear();
+            foreach (var karte in _spiel.SpielKarten.Where(k => k.IstFreigeschaltet))
+                KartenListe.Add(new SpielKarteViewModel(_spiel, karte, KarteKaufen));
+            if (ausgewaehlteKarteID != null) AusgewaehlteKarte = KartenListe.FirstOrDefault(k => k.KarteID == ausgewaehlteKarteID);
+        }
 
-        foreach (var karte in _spiel.SpielKarten.Where(k => k.IstFreigeschaltet))
-            KartenListe.Add(karte);
+
+        Debug.WriteLine(AktiveTabelle);
+        Debug.WriteLine($"Выбранная строка дино: {AusgewaehlterDinosaurier?.Name ?? "нет"}");
+        Debug.WriteLine($"Выбранная строка карта: {AusgewaehlteKarte?.Name ?? "нет"}");
 
         OnPropertyChanged(nameof(Spielername));
         OnPropertyChanged(nameof(Fossilien));
         OnPropertyChanged(nameof(SpielzielName));
+        
     }
     private void DinosaurierKaufen(int dinosaurierartID)
     {
@@ -98,7 +129,7 @@ public class SpielViewModel : AnsichtViewModel
     {
         if (_spielService.KarteKaufen(_spielID, karteID))
             Aktualisieren();
-        KarteKaufenCommand.RaiseCanExecuteChanged();
+        
     }
 
     public void RessourcenAktualisieren(double vergangeneSekunden)
