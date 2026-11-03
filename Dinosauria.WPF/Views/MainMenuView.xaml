@@ -47,7 +47,7 @@
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
 
-                        <ListBox ItemsSource="{Binding SpielerListe}"
+                        <ListBox ItemsSource="{Binding SpielerListe}"  x:Name="SpielerListBox"
                                  SelectedItem="{Binding AusgewaehlterSpieler}"
                                  DisplayMemberPath="Name"
                                  Style="{StaticResource PlayerListBox}"
@@ -103,7 +103,7 @@
                                                 Binding="{Binding Spielername}"
                                                 Width="1.2*"/>
                             <DataGridTextColumn Header="Bestzeit"
-                                                Binding="{Binding Bestzeit}"
+                                                Binding="{Binding Bestzeit,StringFormat={}{0:hh\\:mm\\:ss}}"
                                                 Width="1.2*"/>
                             <DataGridTextColumn Header="Abgeschlossene Spiele"
                                                 Binding="{Binding AnzahlSpiele}"

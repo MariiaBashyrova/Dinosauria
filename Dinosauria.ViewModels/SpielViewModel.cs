@@ -110,9 +110,9 @@ public class SpielViewModel : AnsichtViewModel
         }
 
 
-        Debug.WriteLine(AktiveTabelle);
-        Debug.WriteLine($"Выбранная строка дино: {AusgewaehlterDinosaurier?.Name ?? "нет"}");
-        Debug.WriteLine($"Выбранная строка карта: {AusgewaehlteKarte?.Name ?? "нет"}");
+        //Debug.WriteLine(AktiveTabelle);
+        //Debug.WriteLine($"Выбранная строка дино: {AusgewaehlterDinosaurier?.Name ?? "нет"}");
+        //Debug.WriteLine($"Выбранная строка карта: {AusgewaehlteKarte?.Name ?? "нет"}");
 
         OnPropertyChanged(nameof(Spielername));
         OnPropertyChanged(nameof(Fossilien));

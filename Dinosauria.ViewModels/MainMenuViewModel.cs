@@ -13,6 +13,7 @@ public class MainMenuViewModel : AnsichtViewModel
 
     public override string Titel => "Hauptmenü";
     public event Action<int>? SpielOeffnenRequested;
+    public event Action<int>? SpielLoeschenRequested;
     public ObservableCollection<Spieler> SpielerListe { get; } = [];
     public ObservableCollection<RanglistenEintragViewModel> Rangliste { get; } = [];
     public ObservableCollection<SpielUebersichtViewModel> SpielerSpiele { get; } = [];
@@ -108,6 +109,8 @@ public class MainMenuViewModel : AnsichtViewModel
 
     public override void Aktualisieren()
     {
+        var ausgewaehlterSpielerID = AusgewaehlterSpieler?.SpielerID;
+
         SpielerListe.Clear();
 
         foreach (var spieler in _spielService.SpielerListeLaden())
@@ -115,11 +118,10 @@ public class MainMenuViewModel : AnsichtViewModel
 
         RanglisteLaden();
 
-        if (AusgewaehlterSpieler != null)
-            AusgewaehlterSpieler = SpielerListe
-                .FirstOrDefault(s => s.SpielerID == AusgewaehlterSpieler.SpielerID);
-        else
-            SpielerSpieleLaden();
+        AusgewaehlterSpieler = ausgewaehlterSpielerID != null
+       ? SpielerListe.FirstOrDefault(s => s.SpielerID == ausgewaehlterSpielerID)
+       : SpielerListe.FirstOrDefault();
+        SpielerSpieleLaden();
     }
 
     private void SpielerHinzufuegen()
@@ -239,12 +241,14 @@ public class MainMenuViewModel : AnsichtViewModel
         if (AusgewaehltesSpiel == null)
             return;
 
-        _spielService.SpielLoeschen(AusgewaehltesSpiel.SpielID);
+       // _spielService.SpielLoeschen(AusgewaehltesSpiel.SpielID);
 
-        SpielerSpieleLaden();
-        RanglisteLaden();
+        SpielLoeschenRequested?.Invoke(AusgewaehltesSpiel.SpielID);
 
-        AusgewaehltesSpiel = null;
+        //SpielerSpieleLaden();
+        //RanglisteLaden();
+
+        //AusgewaehltesSpiel = null;
     }
     private void SpielFortsetzen()
     {

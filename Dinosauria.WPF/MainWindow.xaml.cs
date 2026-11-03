@@ -20,7 +20,7 @@ public partial class MainWindow : Window
 
         _mainMenuViewModel.BeendenRequested += Close;
         _mainMenuViewModel.SpielOeffnenRequested += ShowSpiel;
-
+        _mainMenuViewModel.SpielLoeschenRequested += SpielLoeschen;
         ShowMainMenu();
     }
 
@@ -37,5 +37,19 @@ public partial class MainWindow : Window
 
         view.HauptmenueRequested += ShowMainMenu;
         MainContent.Content = view;
+    }
+
+    private void SpielLoeschen(int spielID)
+    {
+        var ergebnis = MessageBox.Show(
+            "Möchtest du dieses Spiel wirklich löschen?",
+            "Spiel löschen",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if (ergebnis != MessageBoxResult.Yes) return;
+
+        _spielService.SpielLoeschen(spielID);
+        ShowMainMenu();
     }
 }

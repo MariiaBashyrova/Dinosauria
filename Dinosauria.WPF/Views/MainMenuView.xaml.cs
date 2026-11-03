@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using Dinosauria.ViewModels;
 
 namespace Dinosauria.WPF.Views;
@@ -10,5 +11,13 @@ public partial class MainMenuView : UserControl
     {
         InitializeComponent();
         DataContext = viewModel;
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (viewModel.AusgewaehlterSpieler != null)
+            {
+                SpielerListBox.Focus();
+                SpielerListBox.ScrollIntoView(viewModel.AusgewaehlterSpieler);
+            }
+        }, DispatcherPriority.Input);
     }
 }
