@@ -44,4 +44,5 @@ public class SpielKarteViewModel
                       x.RessourceID == karte.Karte.KostenRessourceID).Bestand >=
                   karte.Karte.Kaufkosten);
     }
+    
 }

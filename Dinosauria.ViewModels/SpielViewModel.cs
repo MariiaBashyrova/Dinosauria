@@ -12,6 +12,7 @@ public class SpielViewModel : AnsichtViewModel
     private readonly int _spielID;
     private Spiel? _spiel;
     private TimeSpan _spielzeit;
+    private bool _spielfeldInitialisiert;
     public override string Titel => "Spielübersicht";
     public string Spielzeit => _spielzeit.ToString(@"hh\:mm\:ss");
     public string Spielername => _spiel?.Spieler.Name ?? "";
@@ -77,38 +78,51 @@ public class SpielViewModel : AnsichtViewModel
            
         }
     }
+
+    public SpielfeldViewModel Spielfeld { get; }
+
     public SpielViewModel(SpielService spielService, int spielID)
     {
         _spielService = spielService;
         _spielID = spielID;
-       
+        Spielfeld = new SpielfeldViewModel(_spielService);
        
         Aktualisieren();
         
     }
+    public event Action? SpielfeldAktualisierenRequested;
 
-    
     public override void Aktualisieren()
     {
         _spiel = _spielService.SpielLaden(_spielID);
+        var ausgewaehlterDinosaurierID = AusgewaehlterDinosaurier?.Dinosaurier.DinosaurierartID;
+        var ausgewaehlteKarteID = AusgewaehlteKarte?.Karte.KarteID;
+        DinosaurierListe.Clear(); KartenListe.Clear();
+        foreach (var dinosaurier in _spiel.SpielDinosaurier.Where(d => d.IstFreigeschaltet))
+            DinosaurierListe.Add(new SpielDinosaurierViewModel(_spiel, dinosaurier, _spielService, DinosaurierKaufen));
+        foreach (var karte in _spiel.SpielKarten.Where(k => k.IstFreigeschaltet))
+            KartenListe.Add(new SpielKarteViewModel(_spiel, karte, KarteKaufen));
 
         if (AktiveTabelle==0)
         {   
-            var ausgewaehlterDinosaurierID = AusgewaehlterDinosaurier?.Dinosaurier.DinosaurierartID;
-            DinosaurierListe.Clear();
-            foreach (var dinosaurier in _spiel.SpielDinosaurier.Where(d => d.IstFreigeschaltet))
-                DinosaurierListe.Add(new SpielDinosaurierViewModel(_spiel, dinosaurier, _spielService, DinosaurierKaufen));
+           
+           
             if (ausgewaehlterDinosaurierID != null) AusgewaehlterDinosaurier = DinosaurierListe.FirstOrDefault(d => d.DinosaurierartID == ausgewaehlterDinosaurierID);
         }
         else if (AktiveTabelle==1)
         {
-            var ausgewaehlteKarteID = AusgewaehlteKarte?.Karte.KarteID;
-            KartenListe.Clear();
-            foreach (var karte in _spiel.SpielKarten.Where(k => k.IstFreigeschaltet))
-                KartenListe.Add(new SpielKarteViewModel(_spiel, karte, KarteKaufen));
+            
+            
             if (ausgewaehlteKarteID != null) AusgewaehlteKarte = KartenListe.FirstOrDefault(k => k.KarteID == ausgewaehlteKarteID);
         }
 
+        if (!_spielfeldInitialisiert)
+        {
+            Spielfeld.SpielfeldErstellen(_spiel);
+            _spielfeldInitialisiert = true;
+        }
+
+        Spielfeld.SpielfeldAktualisieren();
 
         //Debug.WriteLine(AktiveTabelle);
         //Debug.WriteLine($"Выбранная строка дино: {AusgewaehlterDinosaurier?.Name ?? "нет"}");
@@ -122,15 +136,21 @@ public class SpielViewModel : AnsichtViewModel
     private void DinosaurierKaufen(int dinosaurierartID)
     {
         if (_spielService.DinosaurierKaufen(_spielID, dinosaurierartID))
+        {
             Aktualisieren();
+            SpielfeldAktualisierenRequested?.Invoke();
+        }
     }
 
     private void KarteKaufen(int karteID)
     {
         if (_spielService.KarteKaufen(_spielID, karteID))
-            Aktualisieren();
-        
-    }
+        { 
+            Aktualisieren(); 
+            SpielfeldAktualisierenRequested?.Invoke(); 
+        }
+
+     }
 
     public void RessourcenAktualisieren(double vergangeneSekunden)
     {
@@ -153,4 +173,6 @@ public class SpielViewModel : AnsichtViewModel
     {
         _spielService.SpielzeitSpeichern(_spielID, _spielzeit);
     }
+
+    
 }

@@ -1,12 +1,21 @@
 using System;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
+using Dinosauria.Domain.Models;
 using Dinosauria.ViewModels;
 
 namespace Dinosauria.WPF.Views;
 
 public partial class SpielView : UserControl
 {
+    const int DURCHMESSER = 80;
+    const int BREITE_KARTE = 80;
+    const int HOEHE_KARTE = 60;
+    const int ABSTAND = 40;
     public event Action? HauptmenueRequested;
     private readonly SpielViewModel _viewModel;
     private readonly DispatcherTimer _timer = new();
@@ -16,13 +25,20 @@ public partial class SpielView : UserControl
         InitializeComponent();
         _viewModel = viewModel;
         DataContext = viewModel;
-
+        SpielfeldZeichnen();
         _timer.Interval = TimeSpan.FromSeconds(1);
         _timer.Tick += Timer_Tick;
         _letztesUpdate = DateTime.Now;
         _timer.Start();
-    }
+        _viewModel.SpielfeldAktualisierenRequested += SpielfeldAktualisieren;
 
+    }
+    private void SpielfeldAktualisieren()
+    {
+        SpielfeldCanvas.Children.Clear();
+
+        SpielfeldZeichnen();
+    }
     private void Hauptmenue_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         _timer.Stop();
@@ -51,6 +67,123 @@ public partial class SpielView : UserControl
                 else if (fokusKarten)
                     KartenDataGrid.Focus();
             }, System.Windows.Threading.DispatcherPriority.Input);
+        }
+    }
+
+    private void SpielfeldZeichnen()
+    {
+        SpielfeldCanvas.Children.Clear();
+
+        foreach (var verbindung in _viewModel.Spielfeld.Verbindungen)
+        {
+            if (!verbindung.IstFreigeschaltet)
+                continue;
+
+            var line = new Line
+            {
+                X1 = verbindung.StartX+ABSTAND,
+                Y1 = verbindung.StartY+ABSTAND,
+                X2 = verbindung.EndeX + ABSTAND,
+                Y2 = verbindung.EndeY + ABSTAND,
+                Stroke = Brushes.Gray,
+                StrokeThickness = 2
+            };
+
+            SpielfeldCanvas.Children.Add(line);
+        }
+
+        foreach (var dinosaur in _viewModel.Spielfeld.DinosaurierListe)
+        {
+            if (!dinosaur.IstFreigeschaltet)
+                continue;
+
+            var feld = new Grid
+            {
+                Width = DURCHMESSER,
+                Height = DURCHMESSER
+            };
+
+            feld.Children.Add(new Ellipse
+            {
+                Fill = dinosaur.IstGekauft ? Brushes.LightGreen : Brushes.LightGray
+            });
+
+            var texte = new StackPanel
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
+            texte.Children.Add(new TextBlock
+            {
+                Text = dinosaur.Dinosaurier.Dinosaurierart.Name,
+                TextAlignment = TextAlignment.Center,
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = 11,
+                FontWeight = FontWeights.Bold
+            });
+
+            texte.Children.Add(new TextBlock
+            {
+                Text = dinosaur.Dinosaurier.Anzahl.ToString(),
+                TextAlignment = TextAlignment.Center,
+                FontSize = 14
+            });
+
+            feld.Children.Add(texte);
+
+            Canvas.SetLeft(feld, dinosaur.PositionX);
+            Canvas.SetTop(feld, dinosaur.PositionY);
+            Debug.WriteLine($"Male Dinosaurier {dinosaur.Dinosaurier.Dinosaurierart.Name} hinzugefügt: {dinosaur.PositionX}, {dinosaur.PositionY}");
+            SpielfeldCanvas.Children.Add(feld);
+        }
+
+        foreach (var karte in _viewModel.Spielfeld.KartenListe)
+        {
+            if (!karte.IstFreigeschaltet)
+                continue;
+
+            var feld = new Grid
+            {
+                Width = BREITE_KARTE,
+                Height = HOEHE_KARTE
+            };
+
+            feld.Children.Add(new Rectangle
+            {
+                Fill = karte.IstGekauft ? Brushes.LightBlue : Brushes.LightGray,
+             
+            });
+
+            var texte = new StackPanel
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
+            texte.Children.Add(new TextBlock
+            {
+                Text = karte.Karte.Karte.Name,
+                TextAlignment = TextAlignment.Center,
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = 11,
+                FontWeight = FontWeights.Bold
+            });
+
+            texte.Children.Add(new TextBlock
+            {
+                Text = $"× {karte.Karte.Karte.Multiplikator}",
+                TextAlignment = TextAlignment.Center,
+                FontSize = 13
+            });
+
+            feld.Children.Add(texte);
+
+            Canvas.SetLeft(feld, karte.PositionX);
+            Canvas.SetTop(feld, karte.PositionY);
+
+            SpielfeldCanvas.Children.Add(feld);
+            Debug.WriteLine($"Male Karte {karte.Karte.KarteID} hinzugefügt: {karte.PositionX}, {karte.PositionY}");
         }
     }
 }

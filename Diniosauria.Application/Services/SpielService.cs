@@ -255,6 +255,24 @@ public class SpielService(
         return spielziel.Bedingungen.All(b =>
             BedingungErfuellt(b.Aufgabenbedingung, spiel));
     }
+
+    public Dinosaurierart? VorherigenDinosaurierFinden(int dinosaurierartID)
+    {
+        var dinosaurier = dinosaurierRepository.AlleLaden();
+
+        var art = dinosaurier.Single(d => d.DinosaurierartID == dinosaurierartID);
+
+        var bedingung = art.Bedingungen
+            .Select(b => b.Aufgabenbedingung)
+            .OfType<DinosaurierKaufen>()
+            .FirstOrDefault();
+
+        if (bedingung == null)
+            return null;
+
+        return dinosaurier.Single(d =>
+            d.DinosaurierartID == bedingung.DinosaurierartID);
+    }
     private void SpielAbschliessen(Spiel spiel)
     {
         spiel.Status = Spielstatus.Abgeschlossen;

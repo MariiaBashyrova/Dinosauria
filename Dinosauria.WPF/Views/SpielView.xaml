@@ -74,7 +74,15 @@
         <Border Grid.Row="1"
                 Style="{StaticResource GamePanelBorder}"
                 Margin="0,0,0,4">
-            <Canvas Background="{StaticResource GameFieldBrush}"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+              VerticalScrollBarVisibility="Auto">
+                <Canvas x:Name="SpielfeldCanvas"
+            Width="800"
+            Height="600"
+            Background="Transparent"
+            ClipToBounds="True"/>
+            </ScrollViewer>
+
         </Border>
 
         <!-- Verschiebbarer horizontaler Trenner -->
