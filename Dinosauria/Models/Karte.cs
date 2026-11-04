@@ -11,5 +11,7 @@ public class Karte
     public Ressource KostenRessource { get; set; } = null!;
     public int DinosaurierartID { get; set; }
     public Dinosaurierart Dinosaurierart { get; set; } = null!;
+
+    public string Bilddatei { get; set; } = string.Empty;
     public ICollection<Kartenbedingung> Bedingungen { get; } = new List<Kartenbedingung>();
 }

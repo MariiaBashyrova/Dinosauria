@@ -44,7 +44,7 @@ public class SpielService(
         var dinosaurier = dinosaurierRepository.AlleLaden();
         var karten = karteRepository.AlleLaden();
         var spielziel = spielzielRepository.AlleLaden()
-            .Single(x => x.SpielzielID == 17);
+            .Single(x => x.SpielzielID == 1);
 
         var fossilien = ressourcen.Single(x => x.Name == "Fossilien");
 
@@ -70,7 +70,7 @@ public class SpielService(
             {
                 Dinosaurierart = d,
                 Anzahl = 0,
-                IstFreigeschaltet = d.Name == "Plateosaurus"
+                IstFreigeschaltet = d.Name == "Eoraptor"
             });
         }
 

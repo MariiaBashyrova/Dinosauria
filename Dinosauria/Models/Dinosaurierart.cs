@@ -16,4 +16,5 @@ public class Dinosaurierart
     public Lebensraum Lebensraum { get; set; }
     public ICollection<Karte> Karten { get; } = new List<Karte>();
     public ICollection<Dinosaurierbedingung> Bedingungen { get; } = new List<Dinosaurierbedingung>();
+    public string Bilddatei { get; set; } = string.Empty;
 }

@@ -66,7 +66,8 @@ public class CsvKonfigurationLader
                 Kaufkosten = decimal.Parse(zeile[6], CultureInfo.InvariantCulture),
                 ProduktionProSekunde = decimal.Parse(zeile[7], CultureInfo.InvariantCulture),
                 KostenRessource = fossilien,
-                Produktionsressource = fossilien
+                Produktionsressource = fossilien,
+                Bilddatei = zeile[8]
             });
         }
 
@@ -92,7 +93,8 @@ public class CsvKonfigurationLader
                 Dinosaurierart = dinosaurier[zeile[3]],
                 Kaufkosten = decimal.Parse(zeile[4], CultureInfo.InvariantCulture),
                 Multiplikator = decimal.Parse(zeile[5], CultureInfo.InvariantCulture),
-                KostenRessource = fossilien
+                KostenRessource = fossilien,
+                Bilddatei = zeile[6]
             };
 
             _context.Set<Karte>().Add(karte);
