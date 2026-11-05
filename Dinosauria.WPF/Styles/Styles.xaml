@@ -60,7 +60,7 @@
 
     <!-- Buttons -->
     <Style x:Key="AppButton" TargetType="Button">
-        <Setter Property="Height" Value="48"/>
+        <Setter Property="Height" Value="40"/>
         <Setter Property="MinWidth" Value="140"/>
         <Setter Property="Padding" Value="10,5"/>
         <Setter Property="Margin" Value="0,0,8,8"/>
@@ -87,7 +87,7 @@
 
     <!-- Spieler-Liste -->
     <Style x:Key="PlayerListBox" TargetType="ListBox">
-        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="FontSize" Value="16"/>
         <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -137,9 +137,9 @@
         <Setter Property="RowBackground" Value="White"/>
         <Setter Property="AlternatingRowBackground" Value="#FFF4F6F8"/>
         <Setter Property="AlternationCount" Value="2"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="RowHeight" Value="42"/>
-        <Setter Property="ColumnHeaderHeight" Value="42"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="RowHeight" Value="40"/>
+        <Setter Property="ColumnHeaderHeight" Value="40"/>
         <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource PanelBorderBrush}"/>
         <Setter Property="VerticalGridLinesBrush" Value="{StaticResource PanelBorderBrush}"/>
         
@@ -150,7 +150,7 @@
         <Setter Property="Foreground" Value="#FF333333"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="42"/>
+        <Setter Property="Height" Value="40"/>
         <Setter Property="Padding" Value="8,4"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -168,7 +168,7 @@
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
     <Style TargetType="DataGridRow">
-        <Setter Property="Height" Value="42"/>
+        <Setter Property="Height" Value="40"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>

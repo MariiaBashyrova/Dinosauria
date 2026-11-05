@@ -75,10 +75,13 @@
                 Style="{StaticResource GamePanelBorder}"
                 Margin="0,0,0,4">
             <ScrollViewer HorizontalScrollBarVisibility="Auto"
-              VerticalScrollBarVisibility="Auto">
+              VerticalScrollBarVisibility="Auto"
+              CanContentScroll="False"
+              HorizontalContentAlignment="Left"
+              VerticalContentAlignment="Top">
                 <Canvas x:Name="SpielfeldCanvas"
-            Width="800"
-            Height="600"
+            MinWidth="800"
+            MinHeight="260"
             Background="Transparent"
             ClipToBounds="True"/>
             </ScrollViewer>
@@ -187,115 +190,120 @@
                     
 
                     <!-- Dinosaurier-Details -->
-                <StackPanel>
-                    <TextBlock Text="Details"
+                <ScrollViewer 
+   VerticalScrollBarVisibility="Auto"
+   CanContentScroll="False"
+   HorizontalContentAlignment="Left"
+   VerticalContentAlignment="Top">
+                    <StackPanel>
+                        <TextBlock Text="Details"
                Style="{StaticResource DetailTitleText}"/>
 
-                    <Separator Margin="0,8,0,12"
+                        <Separator Margin="0,8,0,12"
                Background="{StaticResource PanelBorderBrush}"/>
 
-                    <!-- Dinosaurier-Details -->
-                    <StackPanel DataContext="{Binding AusgewaehlterDinosaurier}">
-                        <StackPanel.Style>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding DataContext.AktiveTabelle,
+                        <!-- Dinosaurier-Details -->
+                        <StackPanel DataContext="{Binding AusgewaehlterDinosaurier}">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DataContext.AktiveTabelle,
                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                                  Value="0">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Style>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
 
-                        <TextBlock Text="{Binding Name}"
+                            <TextBlock Text="{Binding Name}"
                    Style="{StaticResource DetailTitleText}"/>
 
-                        <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Beschreibung}"
+                            <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Beschreibung}"
                    Style="{StaticResource DetailText}"
                    TextWrapping="Wrap"/>
 
-                        <Separator Margin="0,8,0,8"/>
+                            <Separator Margin="0,8,0,8"/>
 
-                        <TextBlock Text="{Binding Anzahl, StringFormat=Anzahl: {0}}"
+                            <TextBlock Text="{Binding Anzahl, StringFormat=Anzahl: {0}}"
                    Style="{StaticResource DetailText}"/>
 
-                        <TextBlock Text="{Binding ProduktionProSekunde, StringFormat=Produktion / Sek.: {0:N2}}"
+                            <TextBlock Text="{Binding ProduktionProSekunde, StringFormat=Produktion / Sek.: {0:N2}}"
                    Style="{StaticResource DetailText}"/>
 
-                        <TextBlock Text="{Binding proKauf, StringFormat=Zuwachs pro Kauf: {0}}"
+                            <TextBlock Text="{Binding proKauf, StringFormat=Zuwachs pro Kauf: {0}}"
                    Style="{StaticResource DetailText}"/>
 
-                        <TextBlock Text="{Binding Kosten, StringFormat=Kosten: {0:N2} Fossilien}"
+                            <TextBlock Text="{Binding Kosten, StringFormat=Kosten: {0:N2} Fossilien}"
                    Style="{StaticResource DetailText}"/>
 
-                        <Separator Margin="0,8,0,8"/>
+                            <Separator Margin="0,8,0,8"/>
 
-                        <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Erdzeitalter, StringFormat=Epoche: {0}}"
+                            <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Erdzeitalter, StringFormat=Epoche: {0}}"
                    Style="{StaticResource DetailText}"/>
 
-                        <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Ernaehrung, StringFormat=Ernaehrung: {0}}"
+                            <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Ernaehrung, StringFormat=Ernaehrung: {0}}"
                    Style="{StaticResource DetailText}"/>
 
-                        <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Lebensraum, StringFormat=Lebensraum: {0}}"
+                            <TextBlock Text="{Binding Dinosaurier.Dinosaurierart.Lebensraum, StringFormat=Lebensraum: {0}}"
                    Style="{StaticResource DetailText}"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <!-- Karten-Details -->
-                    <StackPanel DataContext="{Binding AusgewaehlteKarte}">
-                        <StackPanel.Style>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding DataContext.AktiveTabelle,
+                        <!-- Karten-Details -->
+                        <StackPanel DataContext="{Binding AusgewaehlteKarte}">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DataContext.AktiveTabelle,
                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                                  Value="1">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Style>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
 
-                        <TextBlock Text="{Binding Karte.Karte.Name}"
+                            <TextBlock Text="{Binding Karte.Karte.Name}"
                    Style="{StaticResource DetailTitleText}"/>
 
-                        <TextBlock Text="{Binding Karte.Karte.Beschreibung}"
+                            <TextBlock Text="{Binding Karte.Karte.Beschreibung}"
                    Style="{StaticResource DetailText}"
                    TextWrapping="Wrap"/>
 
-                        <Separator Margin="0,8,0,8"/>
+                            <Separator Margin="0,8,0,8"/>
 
-                        <TextBlock Text="{Binding Karte.Karte.Dinosaurierart.Name, StringFormat=Dinosaurier: {0}}"
+                            <TextBlock Text="{Binding Karte.Karte.Dinosaurierart.Name, StringFormat=Dinosaurier: {0}}"
                    Style="{StaticResource DetailText}"/>
 
-                        <TextBlock Text="{Binding Karte.Karte.Multiplikator, StringFormat=Multiplikator: *{0}}"
+                            <TextBlock Text="{Binding Karte.Karte.Multiplikator, StringFormat=Multiplikator: *{0}}"
                    Style="{StaticResource DetailText}"/>
 
-                        <TextBlock Text="{Binding Karte.Karte.Kaufkosten, StringFormat=Kosten: {0:N2} Fossilien}"
+                            <TextBlock Text="{Binding Karte.Karte.Kaufkosten, StringFormat=Kosten: {0:N2} Fossilien}"
                    Style="{StaticResource DetailText}"/>
+                        </StackPanel>
+
+                        <!-- Keine Auswahl -->
+                        <TextBlock Text="Waehle einen Dinosaurier oder eine Karte aus."            TextWrapping="Wrap">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding AusgewaehlterDinosaurier}" Value="{x:Null}"/>
+                                                <Condition Binding="{Binding AusgewaehlteKarte}" Value="{x:Null}"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </StackPanel>
 
-                    <!-- Keine Auswahl -->
-                    <TextBlock Text="Waehle einen Dinosaurier oder eine Karte aus."            TextWrapping="Wrap">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding AusgewaehlterDinosaurier}" Value="{x:Null}"/>
-                                            <Condition Binding="{Binding AusgewaehlteKarte}" Value="{x:Null}"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </StackPanel>
-
-
+                </ScrollViewer>
             </Border>
         </Grid>
 

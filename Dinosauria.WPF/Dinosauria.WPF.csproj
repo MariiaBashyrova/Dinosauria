@@ -9,6 +9,196 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Bilder\Dinosaurier\Allosaurus.png" />
+    <None Remove="Bilder\Dinosaurier\Ankylosaurus.png" />
+    <None Remove="Bilder\Dinosaurier\Brachiosaurus.png" />
+    <None Remove="Bilder\Dinosaurier\Coelophysis.png" />
+    <None Remove="Bilder\Dinosaurier\Deinonychus.png" />
+    <None Remove="Bilder\Dinosaurier\Dilophosaurus.png" />
+    <None Remove="Bilder\Dinosaurier\Diplodocus.png" />
+    <None Remove="Bilder\Dinosaurier\Eoraptor.png" />
+    <None Remove="Bilder\Dinosaurier\Herrerasaurus.png" />
+    <None Remove="Bilder\Dinosaurier\Iguanodon.png" />
+    <None Remove="Bilder\Dinosaurier\Plateosaurus.png" />
+    <None Remove="Bilder\Dinosaurier\Spinosaurus.png" />
+    <None Remove="Bilder\Dinosaurier\Stegosaurus.png" />
+    <None Remove="Bilder\Dinosaurier\Triceratops.png" />
+    <None Remove="Bilder\Dinosaurier\Tyrannosaurus.png" />
+    <None Remove="Bilder\Karten\Allosaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Allosaurus_Karte2.png" />
+    <None Remove="Bilder\Karten\Ankylosaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Ankylosaurus_Karte2.png" />
+    <None Remove="Bilder\Karten\Brachiosaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Brachiosaurus_Karte2.png" />
+    <None Remove="Bilder\Karten\Coelophysis_Karte1.png" />
+    <None Remove="Bilder\Karten\Coelophysis_Karte2.png" />
+    <None Remove="Bilder\Karten\Deinonychus_Karte1.png" />
+    <None Remove="Bilder\Karten\Deinonychus_Karte2.png" />
+    <None Remove="Bilder\Karten\Dilophosaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Dilophosaurus_Karte2.png" />
+    <None Remove="Bilder\Karten\Diplodocus_Karte1.png" />
+    <None Remove="Bilder\Karten\Diplodocus_Karte2.png" />
+    <None Remove="Bilder\Karten\Eoraptor_Karte1.png" />
+    <None Remove="Bilder\Karten\Eoraptor_Karte2.png" />
+    <None Remove="Bilder\Karten\Herrerasaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Herrerasaurus_Karte2.png" />
+    <None Remove="Bilder\Karten\Iguanodon_Karte1.png" />
+    <None Remove="Bilder\Karten\Iguanodon_Karte2.png" />
+    <None Remove="Bilder\Karten\Plateosaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Plateosaurus_Karte2.png" />
+    <None Remove="Bilder\Karten\Spinosaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Spinosaurus_Karte2.png" />
+    <None Remove="Bilder\Karten\Stegosaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Stegosaurus_Karte2.png" />
+    <None Remove="Bilder\Karten\Triceratops_Karte1.png" />
+    <None Remove="Bilder\Karten\Triceratops_Karte2.png" />
+    <None Remove="Bilder\Karten\Tyrannosaurus_Karte1.png" />
+    <None Remove="Bilder\Karten\Tyrannosaurus_Karte2.png" />
+    <None Remove="Bilder\SpielfeldHintergrund.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Bilder\Dinosaurier\Allosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Ankylosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Brachiosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Coelophysis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Deinonychus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Dilophosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Diplodocus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Eoraptor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Herrerasaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Iguanodon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Plateosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Spinosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Stegosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Triceratops.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Dinosaurier\Tyrannosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Allosaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Allosaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Ankylosaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Ankylosaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Brachiosaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Brachiosaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Coelophysis_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Coelophysis_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Deinonychus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Deinonychus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Dilophosaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Dilophosaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Diplodocus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Diplodocus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Eoraptor_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Eoraptor_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Herrerasaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Herrerasaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Iguanodon_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Iguanodon_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Plateosaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Plateosaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Spinosaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Spinosaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Stegosaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Stegosaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Triceratops_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Triceratops_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Tyrannosaurus_Karte1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\Karten\Tyrannosaurus_Karte2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bilder\SpielfeldHintergrund.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dinosauria.Infrastructure\Dinosauria.Infrastructure.csproj" />
     <ProjectReference Include="..\Dinosauria.ViewModels\Dinosauria.ViewModels.csproj" />
   </ItemGroup>

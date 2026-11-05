@@ -1,8 +1,10 @@
 using System;
+using System.IO;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Dinosauria.Domain.Models;
@@ -73,7 +75,19 @@ public partial class SpielView : UserControl
     private void SpielfeldZeichnen()
     {
         SpielfeldCanvas.Children.Clear();
+        SpielfeldGroesseBerechnen();
+        var hintergrund = BildLaden("SpielfeldHintergrund.png", "");
 
+        if (hintergrund != null)
+        {
+            SpielfeldCanvas.Children.Add(new Image
+            {
+                Source = hintergrund,
+                Width = SpielfeldCanvas.Width,
+                Height = SpielfeldCanvas.Height,
+                Stretch = Stretch.Fill
+            });
+        }
         foreach (var verbindung in _viewModel.Spielfeld.Verbindungen)
         {
             if (!verbindung.IstFreigeschaltet)
@@ -103,10 +117,23 @@ public partial class SpielView : UserControl
                 Height = DURCHMESSER
             };
 
-            feld.Children.Add(new Ellipse
+            var bild = BildLaden(dinosaur.Dinosaurier.Dinosaurierart.Bilddatei, "Dinosaurier");
+
+            if (bild != null)
             {
-                Fill = dinosaur.IstGekauft ? Brushes.LightGreen : Brushes.LightGray
-            });
+                feld.Children.Add(new Image
+                {
+                    Source = bild,
+                    Width = DURCHMESSER,
+                    Height = DURCHMESSER,
+                    Stretch = Stretch.UniformToFill,
+                    Clip = new EllipseGeometry(new Rect(0, 0, DURCHMESSER, DURCHMESSER))
+                });
+            }
+            else
+            {
+                feld.Children.Add(new Ellipse { Fill = Brushes.LightGray });
+            }
 
             var texte = new StackPanel
             {
@@ -120,15 +147,32 @@ public partial class SpielView : UserControl
                 TextAlignment = TextAlignment.Center,
                 TextWrapping = TextWrapping.Wrap,
                 FontSize = 11,
-                FontWeight = FontWeights.Bold
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.White
             });
 
             texte.Children.Add(new TextBlock
             {
                 Text = dinosaur.Dinosaurier.Anzahl.ToString(),
                 TextAlignment = TextAlignment.Center,
-                FontSize = 14
+                FontSize = 14,
+                Foreground = Brushes.White
             });
+
+            texte.VerticalAlignment = VerticalAlignment.Bottom;
+            texte.Margin = new Thickness(2, 2, 2, 8);
+
+            foreach (TextBlock text in texte.Children)
+            {
+                text.Foreground = Brushes.White;
+                text.Effect = new System.Windows.Media.Effects.DropShadowEffect
+                {
+                    Color = Colors.Black,
+                    BlurRadius = 4,
+                    ShadowDepth = 1,
+                    Opacity = 1
+                };
+            }
 
             feld.Children.Add(texte);
 
@@ -143,17 +187,24 @@ public partial class SpielView : UserControl
             if (!karte.IstFreigeschaltet)
                 continue;
 
-            var feld = new Grid
-            {
-                Width = BREITE_KARTE,
-                Height = HOEHE_KARTE
-            };
+            var feld = new Grid { Width = BREITE_KARTE, Height = HOEHE_KARTE };
 
-            feld.Children.Add(new Rectangle
+            var bild = BildLaden(karte.Karte.Karte.Bilddatei, "Karten");
+
+            if (bild != null)
             {
-                Fill = karte.IstGekauft ? Brushes.LightBlue : Brushes.LightGray,
-             
-            });
+                feld.Children.Add(new Image
+                {
+                    Source = bild,
+                    Width = BREITE_KARTE,
+                    Height = HOEHE_KARTE,
+                    Stretch = Stretch.UniformToFill
+                });
+            }
+            else
+            {
+                feld.Children.Add(new Rectangle { Fill = Brushes.LightGray });
+            }
 
             var texte = new StackPanel
             {
@@ -177,6 +228,21 @@ public partial class SpielView : UserControl
                 FontSize = 13
             });
 
+            texte.VerticalAlignment = VerticalAlignment.Bottom;
+            texte.Margin = new Thickness(2, 2, 2, 4);
+
+            foreach (TextBlock text in texte.Children)
+            {
+                text.Foreground = Brushes.White;
+                text.Effect = new System.Windows.Media.Effects.DropShadowEffect
+                {
+                    Color = Colors.Black,
+                    BlurRadius = 4,
+                    ShadowDepth = 1,
+                    Opacity = 1
+                };
+            }
+
             feld.Children.Add(texte);
 
             Canvas.SetLeft(feld, karte.PositionX);
@@ -185,5 +251,38 @@ public partial class SpielView : UserControl
             SpielfeldCanvas.Children.Add(feld);
             Debug.WriteLine($"Male Karte {karte.Karte.KarteID} hinzugefügt: {karte.PositionX}, {karte.PositionY}");
         }
+    }
+    private void SpielfeldGroesseBerechnen()
+    {
+        double breite = 800;
+        double hoehe = 260;
+
+        foreach (var dinosaur in _viewModel.Spielfeld.DinosaurierListe)
+        {
+            breite = Math.Max(breite, dinosaur.PositionX + DURCHMESSER + ABSTAND);
+            hoehe = Math.Max(hoehe, dinosaur.PositionY + DURCHMESSER + ABSTAND);
+        }
+
+        foreach (var karte in _viewModel.Spielfeld.KartenListe)
+        {
+            breite = Math.Max(breite, karte.PositionX + BREITE_KARTE + ABSTAND);
+            hoehe = Math.Max(hoehe, karte.PositionY + HOEHE_KARTE + ABSTAND);
+        }
+
+        SpielfeldCanvas.Width = breite;
+        SpielfeldCanvas.Height = hoehe;
+    }
+
+    private BitmapImage? BildLaden(string? dateiname, string ordner)
+    {
+        if (string.IsNullOrWhiteSpace(dateiname)) return null;
+
+        var pfad = System.IO.Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "Bilder", ordner, dateiname);
+
+        if (!File.Exists(pfad)) return null;
+
+        return new BitmapImage(new Uri(pfad));
     }
 }
