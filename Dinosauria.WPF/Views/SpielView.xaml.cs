@@ -1,12 +1,15 @@
 using System;
-using System.IO;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Dinosauria.Domain.Models;
 using Dinosauria.ViewModels;
 
 namespace Dinosauria.WPF.Views;
@@ -22,9 +25,11 @@ public partial class SpielView : UserControl
     private readonly SpielViewModel _viewModel;
     private readonly DispatcherTimer _timer = new();
     private DateTime _letztesUpdate;
+   
     public SpielView(SpielViewModel viewModel)
     {
         InitializeComponent();
+       
         _viewModel = viewModel;
         DataContext = viewModel;
         SpielfeldZeichnen();
@@ -33,21 +38,37 @@ public partial class SpielView : UserControl
         _letztesUpdate = DateTime.Now;
         _timer.Start();
         _viewModel.SpielfeldAktualisierenRequested += SpielfeldAktualisieren;
-
+        Loaded += SpielView_Loaded;
     }
+    private void SpielzeitSichern()
+    {
+
+        _timer.Stop();
+        _viewModel.SpielzeitSpeichern();
+    }    
     private void SpielfeldAktualisieren()
     {
         SpielfeldCanvas.Children.Clear();
 
         SpielfeldZeichnen();
     }
+    private void SpielView_Loaded(object sender, RoutedEventArgs e)
+    {
+        var fenster = Window.GetWindow(this);
+        if (fenster != null)
+            fenster.Closing += Window_Closing;
+    }
+    private void Window_Closing(object? sender, CancelEventArgs e)
+    {
+        SpielzeitSichern();
+      
+    }
     private void Hauptmenue_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        _timer.Stop();
-        _viewModel.SpielzeitSpeichern();
+        SpielzeitSichern();
         HauptmenueRequested?.Invoke();
     }
-
+   
     private void Timer_Tick(object? sender, EventArgs e)
     {
         var fokusDinosaurier = _viewModel.AktiveTabelle == 0 &&

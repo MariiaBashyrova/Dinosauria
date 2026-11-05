@@ -15,10 +15,10 @@ public class SpielViewModel : AnsichtViewModel
     private readonly SpielService _spielService;
     private readonly int _spielID;
     private Spiel? _spiel;
-    private TimeSpan _spielzeit;
+    private TimeSpan? _spielzeit;
     private bool _spielfeldInitialisiert;
     public override string Titel => "Spielübersicht";
-    public string Spielzeit => _spielzeit.ToString(@"hh\:mm\:ss");
+    public string Spielzeit => _spielzeit?.ToString(@"hh\:mm\:ss") ?? "";
     public string Spielername => _spiel?.Spieler.Name ?? "";
     public decimal Fossilien => _spiel?.SpielRessourcen.FirstOrDefault()?.Bestand ?? 0;
 
@@ -93,7 +93,8 @@ public class SpielViewModel : AnsichtViewModel
         Spielfeld = new SpielfeldViewModel(_spielService);
        
         Aktualisieren();
-        
+        _spielzeit = _spiel.Abschlussdauer;
+        OnPropertyChanged(nameof(Spielzeit));
     }
     public event Action? SpielfeldAktualisierenRequested;
 

@@ -438,7 +438,7 @@ public class SpielService(
     }
 
     /// <summary>Speichert die aktuell gemessene Spielzeit eines Spielstands.</summary>
-    public void SpielzeitSpeichern(int spielID, TimeSpan spielzeit)
+    public void SpielzeitSpeichern(int spielID, TimeSpan? spielzeit)
     {
         var spiel = spielRepository.Finden(spielID)
             ?? throw new InvalidOperationException("Spiel nicht gefunden.");
