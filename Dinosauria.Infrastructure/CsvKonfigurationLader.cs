@@ -2,6 +2,11 @@
 using Dinosauria.Domain.Models;
 using Dinosauria.Infrastructure.Data;
 
+/// <summary>
+/// Lädt die statische Spielkonfiguration aus CSV-Dateien und überführt sie in die
+/// relationalen Domänenobjekte. Der Import wird nur ausgeführt, wenn noch keine
+/// Ressourcen vorhanden sind.
+/// </summary>
 public class CsvKonfigurationLader
 {
     private readonly DinosauriaDbContext _context;
@@ -13,6 +18,10 @@ public class CsvKonfigurationLader
         _pfad = pfad;
     }
 
+    /// <summary>
+    /// Liest eine CSV-Datei aus dem Konfigurationsordner, überspringt die Kopfzeile
+    /// und zerlegt die Daten anhand des Semikolons.
+    /// </summary>
     private List<string[]> CsvLesen(string datei)
     {
         return File.ReadAllLines(Path.Combine(_pfad, datei))
@@ -22,11 +31,16 @@ public class CsvKonfigurationLader
             .ToList();
     }
 
+    /// <summary>Lädt die Schlüssel-Wert-Konfiguration aus konfiguration.csv.</summary>
     private Dictionary<string, string> KonfigurationsWerteLaden()
     {
         return CsvLesen("konfiguration.csv")
             .ToDictionary(x => x[0], x => x[1]);
     }
+    /// <summary>
+    /// Führt den vollständigen Import in der notwendigen Reihenfolge aus: Ressourcen,
+    /// Dinosaurier, Karten, Spielziel, Systemkonfiguration und Bedingungen.
+    /// </summary>
     public void Laden()
     {
         if (_context.Set<Ressource>().Any())
@@ -44,6 +58,7 @@ public class CsvKonfigurationLader
         _context.SaveChanges();
     }
 
+    /// <summary>Erstellt die grundlegenden Ressourcentypen aus ressourcen.csv.</summary>
     private void RessourcenLaden()
     {
         foreach (var zeile in CsvLesen("ressourcen.csv"))
@@ -58,6 +73,10 @@ public class CsvKonfigurationLader
         _context.SaveChanges();
     }
 
+    /// <summary>
+    /// Erstellt Dinosaurierarten, wandelt Enum- und Dezimalwerte aus der CSV um und
+    /// verknüpft Kauf- und Produktionsressource.
+    /// </summary>
     private void DinosaurierLaden(string ressourcenName)
     {
         var fossilien = _context.Set<Ressource>().Single(x => x.Name == ressourcenName);
@@ -81,6 +100,10 @@ public class CsvKonfigurationLader
 
         _context.SaveChanges();
     }
+    /// <summary>
+    /// Erstellt Karten und verbindet jede Karte über die CSV-ID mit ihrer Dinosaurierart
+    /// und der konfigurierten Kaufressource.
+    /// </summary>
     private void KartenLaden(string ressourcenName)
     {
         var dinosaurier = CsvLesen("dinosaurier.csv")
@@ -110,6 +133,7 @@ public class CsvKonfigurationLader
 
         _context.SaveChanges();
     }
+    /// <summary>Importiert die verfügbaren Spielziele aus spielziel.csv.</summary>
     private void SpielzielLaden()
     {
         foreach (var zeile in CsvLesen("spielziel.csv"))
@@ -124,6 +148,10 @@ public class CsvKonfigurationLader
         _context.SaveChanges();
     }
 
+    /// <summary>
+    /// Erstellt die einmalige Systemkonfiguration und löst die in konfiguration.csv
+    /// referenzierten Spielziel-, Ressourcen- und Startdinosaurierobjekte auf.
+    /// </summary>
     private void SystemKonfigurationLaden(Dictionary<string, string> werte)
     {
         var spielziel = _context.Spielziele
@@ -145,6 +173,10 @@ public class CsvKonfigurationLader
 
         _context.SaveChanges();
     }
+    /// <summary>
+    /// Erstellt die konkreten Bedingungstypen aus bedingungen.csv und legt anschließend
+    /// die passende Verbindung zu Spielziel, Dinosaurierart oder Karte an.
+    /// </summary>
     private void BedingungenLaden()
     {
         var dinosaurier = CsvLesen("dinosaurier.csv")

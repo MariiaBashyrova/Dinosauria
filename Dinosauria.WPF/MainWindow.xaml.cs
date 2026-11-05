@@ -6,7 +6,8 @@ using Dinosauria.WPF.Views;
 
 namespace Dinosauria.WPF;
 
-public partial class MainWindow : Window
+    /// <summary>Hauptfenster, das zwischen Hauptmenü und Spielansicht navigiert.</summary>
+    public partial class MainWindow : Window
 {
     private readonly MainMenuViewModel _mainMenuViewModel;
     private readonly SpielService _spielService;
@@ -24,7 +25,8 @@ public partial class MainWindow : Window
         ShowMainMenu();
     }
 
-    private void ShowMainMenu()
+        /// <summary>Zeigt das Hauptmenü und verbindet dessen Navigationsevents.</summary>
+        private void ShowMainMenu()
     {
         _mainMenuViewModel.Aktualisieren();
         MainContent.Content = new MainMenuView(_mainMenuViewModel);

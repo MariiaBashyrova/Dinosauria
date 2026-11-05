@@ -27,12 +27,8 @@
     <None Remove="Bilder\Dinosaurier\Tyrannosaurus.png" />
     <None Remove="Bilder\Karten\Allosaurus_1.png" />
     <None Remove="Bilder\Karten\Allosaurus_2.png" />
-    <None Remove="Bilder\Karten\Allosaurus_Karte1.png" />
-    <None Remove="Bilder\Karten\Allosaurus_Karte2.png" />
     <None Remove="Bilder\Karten\Ankylosaurus_1.png" />
     <None Remove="Bilder\Karten\Ankylosaurus_2.png" />
-    <None Remove="Bilder\Karten\Ankylosaurus_Karte1.png" />
-    <None Remove="Bilder\Karten\Ankylosaurus_Karte2.png" />
     <None Remove="Bilder\Karten\Brachiosaurus_1.png" />
     <None Remove="Bilder\Karten\Brachiosaurus_2.png" />
     <None Remove="Bilder\Karten\Brachiosaurus_Karte1.png" />
@@ -143,23 +139,11 @@
     <Content Include="Bilder\Karten\Allosaurus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bilder\Karten\Allosaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Allosaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bilder\Karten\Ankylosaurus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Ankylosaurus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Ankylosaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Ankylosaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Brachiosaurus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -167,23 +151,11 @@
     <Content Include="Bilder\Karten\Brachiosaurus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bilder\Karten\Brachiosaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Brachiosaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bilder\Karten\Coelophysis_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Coelophysis_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Coelophysis_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Coelophysis_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Deinonychus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -191,23 +163,11 @@
     <Content Include="Bilder\Karten\Deinonychus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bilder\Karten\Deinonychus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Deinonychus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bilder\Karten\Dilophosaurus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Dilophosaurus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Dilophosaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Dilophosaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Diplodocus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -215,23 +175,11 @@
     <Content Include="Bilder\Karten\Diplodocus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bilder\Karten\Diplodocus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Diplodocus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bilder\Karten\Eoraptor_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Eoraptor_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Eoraptor_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Eoraptor_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Herrerasaurus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -239,23 +187,11 @@
     <Content Include="Bilder\Karten\Herrerasaurus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bilder\Karten\Herrerasaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Herrerasaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bilder\Karten\Iguanodon_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Iguanodon_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Iguanodon_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Iguanodon_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Plateosaurus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -263,23 +199,11 @@
     <Content Include="Bilder\Karten\Plateosaurus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bilder\Karten\Plateosaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Plateosaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bilder\Karten\Spinosaurus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Spinosaurus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Spinosaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Spinosaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Stegosaurus_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -287,35 +211,17 @@
     <Content Include="Bilder\Karten\Stegosaurus_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bilder\Karten\Stegosaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Stegosaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bilder\Karten\Triceratops_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Triceratops_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bilder\Karten\Triceratops_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Triceratops_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bilder\Karten\Tyrannosaurus-rex_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\Karten\Tyrannosaurus-rex_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Tyrannosaurus_Karte1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bilder\Karten\Tyrannosaurus_Karte2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="Bilder\SpielfeldHintergrund.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

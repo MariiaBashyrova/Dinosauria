@@ -6,6 +6,10 @@ using Dinosauria.ViewModels.Basic;
 
 namespace Dinosauria.ViewModels;
 
+/// <summary>
+/// Präsentiert den laufenden Spielstand und synchronisiert Ressourcen, Tabellen und
+/// Spielfeld mit dem Spielservice.
+/// </summary>
 public class SpielViewModel : AnsichtViewModel
 {
     private readonly SpielService _spielService;
@@ -81,6 +85,7 @@ public class SpielViewModel : AnsichtViewModel
 
     public SpielfeldViewModel Spielfeld { get; }
 
+    /// <summary>Initialisiert das ViewModel für den angegebenen Spielstand.</summary>
     public SpielViewModel(SpielService spielService, int spielID)
     {
         _spielService = spielService;
@@ -92,6 +97,10 @@ public class SpielViewModel : AnsichtViewModel
     }
     public event Action? SpielfeldAktualisierenRequested;
 
+    /// <summary>
+    /// Lädt den Spielstand neu, baut die sichtbaren freigeschalteten Listen auf und
+    /// aktualisiert anschließend die grafische Spielfeldansicht.
+    /// </summary>
     public override void Aktualisieren()
     {
         _spiel = _spielService.SpielLaden(_spielID);
@@ -133,6 +142,7 @@ public class SpielViewModel : AnsichtViewModel
         OnPropertyChanged(nameof(SpielzielName));
         
     }
+    /// <summary>Führt den Kauf aus und aktualisiert Listen und Spielfeld bei Erfolg.</summary>
     private void DinosaurierKaufen(int dinosaurierartID)
     {
         if (_spielService.DinosaurierKaufen(_spielID, dinosaurierartID))
@@ -142,6 +152,7 @@ public class SpielViewModel : AnsichtViewModel
         }
     }
 
+    /// <summary>Führt den Kartenkauf aus und aktualisiert die Oberfläche bei Erfolg.</summary>
     private void KarteKaufen(int karteID)
     {
         if (_spielService.KarteKaufen(_spielID, karteID))
@@ -152,6 +163,7 @@ public class SpielViewModel : AnsichtViewModel
 
      }
 
+    /// <summary>Bucht die Produktion für die vergangene Zeit und aktualisiert Fortschrittsanzeigen.</summary>
     public void RessourcenAktualisieren(double vergangeneSekunden)
     {
         _spielService.RessourcenProduzieren(_spielID, vergangeneSekunden);
@@ -163,12 +175,14 @@ public class SpielViewModel : AnsichtViewModel
         Aktualisieren();
     }
 
+    /// <summary>Erhöht die lokal gemessene Spielzeit.</summary>
     public void SpielzeitAktualisieren(double vergangeneSekunden)
     {
         _spielzeit += TimeSpan.FromSeconds(vergangeneSekunden);
         OnPropertyChanged(nameof(Spielzeit));
     }
 
+    /// <summary>Speichert die aktuell gemessene Spielzeit über den Spielservice.</summary>
     public void SpielzeitSpeichern()
     {
         _spielService.SpielzeitSpeichern(_spielID, _spielzeit);

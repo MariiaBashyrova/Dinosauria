@@ -6,6 +6,7 @@ using Dinosauria.Domain.Models;
 using Dinosauria.ViewModels;
 using Dinosauria.ViewModels.Basic;
 
+/// <summary>Erzeugt und aktualisiert die räumliche Darstellung von Dinosauriern und Karten.</summary>
 public class SpielfeldViewModel : ViewModelBase
 {
     const int BEGIN = 50;
@@ -26,6 +27,11 @@ public class SpielfeldViewModel : ViewModelBase
     {
         _spielService = spielService;
     }
+    /// <summary>
+    /// Ordnet Dinosaurier horizontal und Karten abwechselnd oberhalb bzw. unterhalb an.
+    /// Danach werden Verbindungslinien zu vorherigen Dinosauriern und zu den zugehörigen
+    /// Karten erzeugt.
+    /// </summary>
     public void SpielfeldErstellen(Spiel spiel)
     {
         int counter = 0; int counter2 = 0;
@@ -83,6 +89,7 @@ public class SpielfeldViewModel : ViewModelBase
         }
     }
 
+    /// <summary>Aktualisiert Zustände der Knoten und anschließend alle Verbindungslinien.</summary>
     public void SpielfeldAktualisieren()
     {
         foreach (var dino in DinosaurierListe)

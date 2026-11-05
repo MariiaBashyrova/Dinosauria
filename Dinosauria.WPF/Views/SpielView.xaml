@@ -81,7 +81,7 @@
               VerticalContentAlignment="Top">
                 <Canvas x:Name="SpielfeldCanvas"
             MinWidth="800"
-            MinHeight="260"
+            MinHeight="260" 
             Background="Transparent"
             ClipToBounds="True"/>
             </ScrollViewer>

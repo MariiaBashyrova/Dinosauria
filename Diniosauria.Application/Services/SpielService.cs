@@ -3,6 +3,11 @@ using Dinosauria.Domain.Repositories;
 
 namespace Dinosauria.Application.Services;
 
+/// <summary>
+/// Steuert die zentralen Spielabläufe und verbindet Domänenlogik mit den Repositories.
+/// Käufe, Ressourcenproduktion, Freischaltungen und der Abschluss eines Spiels werden
+/// hier koordiniert.
+/// </summary>
 public class SpielService(
 
     ISpielRepository spielRepository,
@@ -12,6 +17,7 @@ public class SpielService(
     IKarteRepository karteRepository,
     ISpielzielRepository spielzielRepository, ISystemKonfigurationRepository konfigurationRepository)
 {
+    /// <summary>Erstellt einen neuen Spieler nach Validierung und speichert ihn.</summary>
     public Spieler SpielerHinzufuegen(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -28,6 +34,10 @@ public class SpielService(
         return spieler;
     }
 
+    /// <summary>
+    /// Liefert abgeschlossene Spiele für die Rangliste. Kürzere Abschlusszeiten stehen
+    /// vor längeren Zeiten; das Enddatum dient als zweites Sortierkriterium.
+    /// </summary>
     public IReadOnlyList<Spiel> RanglisteErstellen()
     {
         return spielRepository.AlleLaden()
@@ -36,6 +46,11 @@ public class SpielService(
             .ThenBy(s => s.Endzeitpunkt)
             .ToList();
     }
+    /// <summary>
+    /// Erstellt einen Spielstand aus der Systemkonfiguration. Dabei werden Startressource,
+    /// Dinosaurier und Karten als spielbezogene Zustände angelegt; nur der konfigurierte
+    /// erste Dinosaurier ist zu Beginn freigeschaltet.
+    /// </summary>
     public Spiel NeuesSpielErstellen(int spielerID)
     {
         var spieler = spielerRepository.Finden(spielerID)
@@ -95,11 +110,16 @@ public class SpielService(
         return spiel;
     }
 
+    /// <summary>Lädt einen Spielstand oder meldet einen unbekannten Spielstand als Fehler.</summary>
     public Spiel SpielLaden(int spielID)
     {
         return spielRepository.Finden(spielID)
             ?? throw new InvalidOperationException("Spiel nicht gefunden.");
     }
+    /// <summary>
+    /// Kauft einen Dinosaurier, sofern das Spiel läuft, die Art freigeschaltet ist und
+    /// genügend Ressourcen vorhanden sind. Die Kosten steigen mit jedem Exemplar um 15 %.
+    /// </summary>
     public bool DinosaurierKaufen(int spielID, int dinosaurierartID)
     {
         var spiel = spielRepository.Finden(spielID)
@@ -133,6 +153,11 @@ public class SpielService(
 
     
 
+    /// <summary>
+    /// Bucht die Produktion für die vergangene Zeit. Die Menge ergibt sich aus der
+    /// Basisproduktion, der Anzahl der Dinosaurier und dem Produkt aller gekauften
+    /// Kartenmultiplikatoren der jeweiligen Art.
+    /// </summary>
     public void RessourcenProduzieren(int spielID, double vergangeneSekunden)
     {
         
@@ -159,6 +184,7 @@ public class SpielService(
         SpielstatusPruefen(spielID);
     }
 
+    /// <summary>Kauft eine freigeschaltete Karte, wenn ihre Kosten bezahlt werden können.</summary>
     public bool KarteKaufen(int spielID, int karteID)
     {
         var spiel = spielRepository.Finden(spielID)
@@ -188,6 +214,10 @@ public class SpielService(
         return true;
     }
 
+    /// <summary>
+    /// Prüft konkrete Bedingungstypen polymorph. Eine Kaufbedingung vergleicht die Anzahl
+    /// gekaufter Dinosaurier, eine Produktionsbedingung die kumulierte Gesamtproduktion.
+    /// </summary>
     private bool BedingungErfuellt(Aufgabenbedingung bedingung, Spiel spiel)
     {
         return bedingung switch
@@ -206,6 +236,10 @@ public class SpielService(
         };
     }
 
+    /// <summary>
+    /// Prüft die Bedingungen aller noch gesperrten Dinosaurier und Karten. Ein Element wird
+    /// erst freigeschaltet, wenn alle ihm zugeordneten Bedingungen erfüllt sind.
+    /// </summary>
     public void FreischaltungenPruefen(int spielID)
     {
         var spiel = spielRepository.Finden(spielID)
@@ -251,6 +285,7 @@ public class SpielService(
         if (geaendert)
             spielRepository.Aktualisieren(spiel);
     }
+    /// <summary>Prüft, ob sämtliche Bedingungen des Spielziels erfüllt sind.</summary>
     private bool SpielzielErreicht(Spiel spiel)
     {
         var spielziel = spielzielRepository.Finden(spiel.SpielzielID);
@@ -262,6 +297,10 @@ public class SpielService(
             BedingungErfuellt(b.Aufgabenbedingung, spiel));
     }
 
+    /// <summary>
+    /// Ermittelt den Dinosaurier, der laut Kaufbedingung vor einer Art benötigt wird.
+    /// Diese Information wird für die Anordnung der Knoten im Spielfeld verwendet.
+    /// </summary>
     public Dinosaurierart? VorherigenDinosaurierFinden(int dinosaurierartID)
     {
         var dinosaurier = dinosaurierRepository.AlleLaden();
@@ -279,12 +318,17 @@ public class SpielService(
         return dinosaurier.Single(d =>
             d.DinosaurierartID == bedingung.DinosaurierartID);
     }
+    /// <summary>Setzt Status, Endzeitpunkt und benötigte Spielzeit eines abgeschlossenen Spiels.</summary>
     private void SpielAbschliessen(Spiel spiel)
     {
         spiel.Status = Spielstatus.Abgeschlossen;
         spiel.Endzeitpunkt = DateTime.Now;
         spiel.Abschlussdauer = spiel.Endzeitpunkt - spiel.Startzeitpunkt;
     }
+    /// <summary>
+    /// Aktualisiert Freischaltungen und beendet das Spiel automatisch, sobald das Spielziel
+    /// erreicht wurde.
+    /// </summary>
     public void SpielstatusPruefen(int spielID)
     {
         var spiel = spielRepository.Finden(spielID)
@@ -301,11 +345,13 @@ public class SpielService(
             spielRepository.Aktualisieren(spiel);
         }
     }
+    /// <summary>Lädt alle vorhandenen Spieler.</summary>
     public IReadOnlyList<Spieler> SpielerListeLaden()
     {
         return spielerRepository.AlleLaden();
     }
 
+    /// <summary>Lädt die Spielstände eines Spielers, neueste Starts zuerst.</summary>
     public IReadOnlyList<Spiel> SpielerSpieleLaden(int spielerID)
     {
         return spielRepository.AlleLaden()
@@ -314,6 +360,7 @@ public class SpielService(
             .ToList();
     }
 
+    /// <summary>Validiert und speichert den neuen Namen eines Spielers.</summary>
     public void SpielerUmbenennen(int spielerID, string neuerName)
     {
         if (string.IsNullOrWhiteSpace(neuerName))
@@ -326,6 +373,9 @@ public class SpielService(
         spielerRepository.Aktualisieren(spieler);
     }
 
+    /// <summary>
+    /// Löscht einen Spieler nur dann, wenn keine gespeicherten Spiele auf ihn verweisen.
+    /// </summary>
     public bool SpielerLoeschen(int spielerID)
     {
         var spieler = spielerRepository.Finden(spielerID)
@@ -338,6 +388,7 @@ public class SpielService(
         return true;
     }
 
+    /// <summary>Löscht einen vorhandenen Spielstand.</summary>
     public void SpielLoeschen(int spielID)
     {
         var spiel = spielRepository.Finden(spielID)
@@ -346,6 +397,7 @@ public class SpielService(
         spielRepository.Entfernen(spielID);
     }
 
+    /// <summary>Berechnet die Gesamtproduktion einer Dinosaurierart pro Sekunde.</summary>
     public decimal DinosaurierProduktionBerechnen(Spiel spiel, SpielDinosaurier spielDinosaurier)
     {
         var dinosaurier = spielDinosaurier.Dinosaurierart;
@@ -354,6 +406,7 @@ public class SpielService(
         return dinosaurier.ProduktionProSekunde * spielDinosaurier.Anzahl * multiplikator;
     }
 
+    /// <summary>Berechnet die Produktion eines einzelnen Exemplars inklusive Kartenbonus.</summary>
     public decimal DinosaurierProduktionBerechnenProStueck(Spiel spiel, SpielDinosaurier spielDinosaurier)
     {
         var dinosaurier = spielDinosaurier.Dinosaurierart;
@@ -362,6 +415,10 @@ public class SpielService(
         return dinosaurier.ProduktionProSekunde * multiplikator;
     }
 
+    /// <summary>
+    /// Multipliziert alle gekauften Karten, die derselben Dinosaurierart zugeordnet sind.
+    /// Ohne passende Karten bleibt der Multiplikator 1.
+    /// </summary>
     private static decimal ProduktionMultiplikator(Spiel spiel, SpielDinosaurier spielDinosaurier)
     {
         return spiel.SpielKarten
@@ -370,12 +427,17 @@ public class SpielService(
             .Aggregate(1m, (ergebnis, k) => ergebnis * (decimal)k.Karte.Multiplikator);
     }
 
+    /// <summary>
+    /// Berechnet den Preis des nächsten Exemplars mit einer Steigerung von 15 % pro Kauf
+    /// und rundet das Ergebnis auf zwei Nachkommastellen.
+    /// </summary>
     public decimal KostenBerechnen(Dinosaurierart dinosaurier, SpielDinosaurier spielDinosaurier)
     {
         return Math.Round(dinosaurier.Kaufkosten *
             (decimal)Math.Pow(1.15, spielDinosaurier.Anzahl),2);
     }
 
+    /// <summary>Speichert die aktuell gemessene Spielzeit eines Spielstands.</summary>
     public void SpielzeitSpeichern(int spielID, TimeSpan spielzeit)
     {
         var spiel = spielRepository.Finden(spielID)
@@ -384,6 +446,7 @@ public class SpielService(
         spiel.Abschlussdauer = spielzeit;
         spielRepository.Aktualisieren(spiel);
     }
+    /// <summary>Lädt ein Spielziel anhand seiner ID.</summary>
     public Spielziel? SpielzielLaden(int spielzielID)
     {
         return spielzielRepository.Finden(spielzielID);

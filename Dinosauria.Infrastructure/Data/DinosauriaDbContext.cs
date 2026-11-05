@@ -8,6 +8,10 @@ using Dinosauria.Domain.Models;
 
 namespace Dinosauria.Infrastructure.Data;
 
+/// <summary>
+/// EF-Core-Datenbankkontext für die Domänenobjekte von Dinosauria.
+/// Neben den DbSets enthält er die Schlüssel-, Vererbungs- und Beziehungsdefinitionen.
+/// </summary>
 public class DinosauriaDbContext(DbContextOptions<DinosauriaDbContext> options)
     : DbContext(options)
 {
@@ -27,9 +31,14 @@ public class DinosauriaDbContext(DbContextOptions<DinosauriaDbContext> options)
     public DbSet<Dinosaurierbedingung> Dinosaurierbedingungen => Set<Dinosaurierbedingung>();
     public DbSet<Kartenbedingung> Kartenbedingungen => Set<Kartenbedingung>();
     public DbSet<SystemKonfiguration> SystemKonfigurationen => Set<SystemKonfiguration>();
+    /// <summary>Konfiguriert die SQL-Server-Verbindung für den Kontext.</summary>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseSqlServer(DatabaseConnection.ConnectionString);
 
+    /// <summary>
+    /// Definiert Tabellen, Schlüssel, Enum-Konvertierungen, zusammengesetzte Schlüssel,
+    /// Ressourcebeziehungen und die TPH-Vererbung der Aufgabenbedingungen.
+    /// </summary>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -170,8 +179,10 @@ public class DinosauriaDbContext(DbContextOptions<DinosauriaDbContext> options)
     
 }
 
+/// <summary>Erzeugt einen konfigurierten Datenbankkontext für Infrastrukturzugriffe.</summary>
 public static class DinosauriaDbContextFactory
 {
+    /// <summary>Erstellt einen Kontext mit den SQL-Server-Optionen der Anwendung.</summary>
     public static DinosauriaDbContext Create()
     {
         var options = new DbContextOptionsBuilder<DinosauriaDbContext>()

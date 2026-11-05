@@ -7,11 +7,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using Dinosauria.Domain.Models;
 using Dinosauria.ViewModels;
 
 namespace Dinosauria.WPF.Views;
 
+/// <summary>Visuelle Oberfläche für den laufenden Spielstand.</summary>
 public partial class SpielView : UserControl
 {
     const int DURCHMESSER = 80;
@@ -99,7 +99,7 @@ public partial class SpielView : UserControl
                 Y1 = verbindung.StartY+ABSTAND,
                 X2 = verbindung.EndeX + ABSTAND,
                 Y2 = verbindung.EndeY + ABSTAND,
-                Stroke = Brushes.Gray,
+                Stroke = Brushes.White,
                 StrokeThickness = 2
             };
 
@@ -146,7 +146,7 @@ public partial class SpielView : UserControl
                 Text = dinosaur.Dinosaurier.Dinosaurierart.Name,
                 TextAlignment = TextAlignment.Center,
                 TextWrapping = TextWrapping.Wrap,
-                FontSize = 11,
+                FontSize = 12,
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.White
             });
@@ -168,8 +168,8 @@ public partial class SpielView : UserControl
                 text.Effect = new System.Windows.Media.Effects.DropShadowEffect
                 {
                     Color = Colors.Black,
-                    BlurRadius = 4,
-                    ShadowDepth = 1,
+                    BlurRadius = 2,
+                    ShadowDepth = 0,
                     Opacity = 1
                 };
             }

@@ -2,6 +2,7 @@
 using Dinosauria.ViewModels;
 using Dinosauria.ViewModels.Basic;
 
+/// <summary>Stellt einen Dinosaurierknoten des Spielfelds dar.</summary>
 public class DinosaurierFeldViewModel : ViewModelBase
 {
     public SpielDinosaurier Dinosaurier { get; }
@@ -13,6 +14,7 @@ public class DinosaurierFeldViewModel : ViewModelBase
     public bool IstFreigeschaltet => Dinosaurier.IstFreigeschaltet;
 
     public DinosaurierFeldViewModel? VorherigerDinosaurier { get;  }
+    /// <summary>Erzeugt einen Knoten mit Position und optionalem Vorgängerknoten.</summary>
     public DinosaurierFeldViewModel(
     SpielDinosaurier dinosaurier,
     DinosaurierFeldViewModel? vorherigerDinosaurier,
@@ -24,6 +26,7 @@ public class DinosaurierFeldViewModel : ViewModelBase
         PositionX = positionX;
         PositionY = positionY;
     }
+    /// <summary>Meldet geänderte Kauf- und Freischaltungszustände an die Oberfläche.</summary>
     public void Aktualisieren()
     {
         OnPropertyChanged(nameof(IstGekauft));

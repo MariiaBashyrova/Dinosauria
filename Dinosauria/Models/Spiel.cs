@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dinosauria.Domain.Models;
 
+/// <summary>Repräsentiert einen einzelnen, persistenten Spielstand.</summary>
 public class Spiel
 {
     public int SpielID { get; set; }
@@ -21,6 +22,7 @@ public class Spiel
     public ICollection<SpielDinosaurier> SpielDinosaurier { get; } = new List<SpielDinosaurier>();
     public ICollection<SpielKarte> SpielKarten { get; } = new List<SpielKarte>();
 
+    /// <summary>Liefert eine kurze, für Listen geeignete Bezeichnung des Spielstands.</summary>
     public override string ToString() => $"Spiel vom {Startzeitpunkt:dd.MM.yyyy}";
 
 }

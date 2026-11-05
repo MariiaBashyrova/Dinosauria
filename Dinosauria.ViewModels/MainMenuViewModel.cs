@@ -5,6 +5,9 @@ using Dinosauria.ViewModels.Basic;
 
 namespace Dinosauria.ViewModels;
 
+/// <summary>
+/// Stellt Spieler, Rangliste und gespeicherte Spiele für das Hauptmenü bereit.
+/// </summary>
 public class MainMenuViewModel : AnsichtViewModel
 {
     private readonly SpielService _spielService;
@@ -80,6 +83,7 @@ public class MainMenuViewModel : AnsichtViewModel
             ? "Spiele des ausgewählten Spielers"
             : $"Spiele von: {AusgewaehlterSpieler.Name}";
 
+    /// <summary>Initialisiert die Commands und lädt die Ausgangsdaten des Hauptmenüs.</summary>
     public MainMenuViewModel(SpielService spielService)
     {
         _spielService = spielService;
@@ -107,6 +111,7 @@ public class MainMenuViewModel : AnsichtViewModel
         BeendenCommand = new RelayCommand(Beenden);
     }
 
+    /// <summary>Aktualisiert Spieler, Rangliste und die Auswahl des aktuellen Spielers.</summary>
     public override void Aktualisieren()
     {
         var ausgewaehlterSpielerID = AusgewaehlterSpieler?.SpielerID;
@@ -124,6 +129,7 @@ public class MainMenuViewModel : AnsichtViewModel
         SpielerSpieleLaden();
     }
 
+    /// <summary>Erstellt einen Spieler und wählt ihn anschließend aus.</summary>
     private void SpielerHinzufuegen()
     {
         var spieler = _spielService.SpielerHinzufuegen(NeuerSpielerName);
@@ -133,6 +139,7 @@ public class MainMenuViewModel : AnsichtViewModel
         AusgewaehlterSpieler = spieler;
     }
 
+    /// <summary>Erstellt für den ausgewählten Spieler einen neuen Spielstand.</summary>
     private void NeuesSpielStarten()
     {
         if (AusgewaehlterSpieler == null)
@@ -143,6 +150,7 @@ public class MainMenuViewModel : AnsichtViewModel
         SpielOeffnenRequested?.Invoke(spiel.SpielID);
     }
 
+    /// <summary>Gruppiert abgeschlossene Spiele pro Spieler und erzeugt Ranglisteneinträge.</summary>
     private void RanglisteLaden()
     {
         Rangliste.Clear();
@@ -170,6 +178,7 @@ public class MainMenuViewModel : AnsichtViewModel
         }
     }
 
+    /// <summary>Lädt die Spielübersichten des aktuell ausgewählten Spielers.</summary>
     private void SpielerSpieleLaden()
     {
         SpielerSpiele.Clear();
@@ -191,6 +200,7 @@ public class MainMenuViewModel : AnsichtViewModel
         }
     }
 
+    /// <summary>Speichert den neuen Spielernamen und aktualisiert die Anzeige.</summary>
     private void SpielerUmbenennen()
     {
         if (AusgewaehlterSpieler == null)
@@ -215,6 +225,7 @@ public class MainMenuViewModel : AnsichtViewModel
         NeuerSpielerName = "";
     }
 
+    /// <summary>Löscht den ausgewählten Spieler, sofern der Service dies erlaubt.</summary>
     private void SpielerLoeschen()
     {
         if (AusgewaehlterSpieler == null)
@@ -229,6 +240,7 @@ public class MainMenuViewModel : AnsichtViewModel
         SpielerListe.Remove(AusgewaehlterSpieler);
         AusgewaehlterSpieler = null;
     }
+    /// <summary>Meldet den Wunsch zum Beenden an das übergeordnete Fenster.</summary>
     private void Beenden()
     {
         BeendenRequested?.Invoke();
@@ -236,6 +248,7 @@ public class MainMenuViewModel : AnsichtViewModel
 
     public event Action? BeendenRequested;
 
+    /// <summary>Meldet den ausgewählten Spielstand zur Löschung an die Oberfläche.</summary>
     private void SpielLoeschen()
     {
         if (AusgewaehltesSpiel == null)
@@ -250,6 +263,7 @@ public class MainMenuViewModel : AnsichtViewModel
 
         //AusgewaehltesSpiel = null;
     }
+    /// <summary>Öffnet den ausgewählten laufenden Spielstand erneut.</summary>
     private void SpielFortsetzen()
     {
         if (AusgewaehltesSpiel == null) return;

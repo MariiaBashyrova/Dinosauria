@@ -5,6 +5,7 @@ using Dinosauria.ViewModels;
 
 namespace Dinosauria.WPF.Views;
 
+/// <summary>Visuelle Oberfläche des Hauptmenüs.</summary>
 public partial class MainMenuView : UserControl
 {
     public MainMenuView(MainMenuViewModel viewModel)
