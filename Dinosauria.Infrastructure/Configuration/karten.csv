@@ -1,31 +1,31 @@
 ﻿Schluessel;Name;Beschreibung;Dinosaurier;Kaufkosten;Multiplikator;Bilddatei
-EORAPTOR_KARTE_1;Eoraptor: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;EORAPTOR;30;5.6;Eoraptor_Karte_1.png
-EORAPTOR_KARTE_2;Eoraptor: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;EORAPTOR;120;3.8;Eoraptor_Karte_2.png
-HERRERASAURUS_KARTE_1;Herrerasaurus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;HERRERASAURUS;105;5.2;Herrerasaurus_Karte_1.png
-HERRERASAURUS_KARTE_2;Herrerasaurus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;HERRERASAURUS;420;3.4;Herrerasaurus_Karte_2.png
-COELOPHYSIS_KARTE_1;Coelophysis: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;COELOPHYSIS;360;4.8;Coelophysis_Karte_1.png
-COELOPHYSIS_KARTE_2;Coelophysis: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;COELOPHYSIS;1440;3.2;Coelophysis_Karte_2.png
-PLATEOSAURUS_KARTE_1;Plateosaurus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;PLATEOSAURUS;1200;4.5;Plateosaurus_Karte_1.png
-PLATEOSAURUS_KARTE_2;Plateosaurus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;PLATEOSAURUS;4800;3.0;Plateosaurus_Karte_2.png
-DILOPHOSAURUS_KARTE_1;Dilophosaurus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;DILOPHOSAURUS;3900;4.2;Dilophosaurus_Karte_1.png
-DILOPHOSAURUS_KARTE_2;Dilophosaurus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;DILOPHOSAURUS;15600;2.8;Dilophosaurus_Karte_2.png
-ALLOSAURUS_KARTE_1;Allosaurus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;ALLOSAURUS;12600;4.0;Allosaurus_Karte_1.png
-ALLOSAURUS_KARTE_2;Allosaurus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;ALLOSAURUS;50400;2.7;Allosaurus_Karte_2.png
-STEGOSAURUS_KARTE_1;Stegosaurus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;STEGOSAURUS;40500;3.8;Stegosaurus_Karte_1.png
-STEGOSAURUS_KARTE_2;Stegosaurus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;STEGOSAURUS;162000;2.5;Stegosaurus_Karte_2.png
-DIPLODOCUS_KARTE_1;Diplodocus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;DIPLODOCUS;129000;3.6;Diplodocus_Karte_1.png
-DIPLODOCUS_KARTE_2;Diplodocus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;DIPLODOCUS;516000;2.4;Diplodocus_Karte_2.png
-BRACHIOSAURUS_KARTE_1;Brachiosaurus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;BRACHIOSAURUS;405000;3.4;Brachiosaurus_Karte_1.png
-BRACHIOSAURUS_KARTE_2;Brachiosaurus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;BRACHIOSAURUS;1620000;2.3;Brachiosaurus_Karte_2.png
-IGUANODON_KARTE_1;Iguanodon: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;IGUANODON;1260000;3.2;Iguanodon_Karte_1.png
-IGUANODON_KARTE_2;Iguanodon: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;IGUANODON;5040000;2.2;Iguanodon_Karte_2.png
-DEINONYCHUS_KARTE_1;Deinonychus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;DEINONYCHUS;3900000;3.0;Deinonychus_Karte_1.png
-DEINONYCHUS_KARTE_2;Deinonychus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;DEINONYCHUS;15600000;2.1;Deinonychus_Karte_2.png
-SPINOSAURUS_KARTE_1;Spinosaurus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;SPINOSAURUS;12000000;2.8;Spinosaurus_Karte_1.png
-SPINOSAURUS_KARTE_2;Spinosaurus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;SPINOSAURUS;48000000;2.0;Spinosaurus_Karte_2.png
-ANKYLOSAURUS_KARTE_1;Ankylosaurus: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;ANKYLOSAURUS;36000000;2.6;Ankylosaurus_Karte_1.png
-ANKYLOSAURUS_KARTE_2;Ankylosaurus: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;ANKYLOSAURUS;144000000;1.8;Ankylosaurus_Karte_2.png
-TRICERATOPS_KARTE_1;Triceratops: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;TRICERATOPS;108000000;2.4;Triceratops_Karte_1.png
-TRICERATOPS_KARTE_2;Triceratops: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;TRICERATOPS;432000000;1.7;Triceratops_Karte_2.png
-TYRANNOSAURUS_KARTE_1;Tyrannosaurus rex: Verbesserte Nahrung;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;TYRANNOSAURUS;300000000;2.2;Tyrannosaurus rex_Karte_1.png
-TYRANNOSAURUS_KARTE_2;Tyrannosaurus rex: Optimierter Stoffwechsel;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;TYRANNOSAURUS;1200000000;1.5;Tyrannosaurus rex_Karte_2.png
+EORAPTOR_1;Eoraptor: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;EORAPTOR;30;2.6;Eoraptor_1.png
+EORAPTOR_2;Eoraptor: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;EORAPTOR;120;3.8;Eoraptor_2.png
+HERRERASAURUS_1;Herrerasaurus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;HERRERASAURUS;105;3.2;Herrerasaurus_1.png
+HERRERASAURUS_2;Herrerasaurus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;HERRERASAURUS;420;3.4;Herrerasaurus_2.png
+COELOPHYSIS_1;Coelophysis: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;COELOPHYSIS;360;1.8;Coelophysis_1.png
+COELOPHYSIS_2;Coelophysis: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;COELOPHYSIS;1440;3.2;Coelophysis_2.png
+PLATEOSAURUS_1;Plateosaurus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;PLATEOSAURUS;1200;2.5;Plateosaurus_1.png
+PLATEOSAURUS_2;Plateosaurus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;PLATEOSAURUS;4800;3.0;Plateosaurus_2.png
+DILOPHOSAURUS_1;Dilophosaurus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;DILOPHOSAURUS;3900;4.2;Dilophosaurus_1.png
+DILOPHOSAURUS_2;Dilophosaurus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;DILOPHOSAURUS;15600;2.8;Dilophosaurus_2.png
+ALLOSAURUS_1;Allosaurus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;ALLOSAURUS;12600;4.0;Allosaurus_1.png
+ALLOSAURUS_2;Allosaurus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;ALLOSAURUS;50400;2.7;Allosaurus_2.png
+STEGOSAURUS_1;Stegosaurus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;STEGOSAURUS;40500;1.8;Stegosaurus_1.png
+STEGOSAURUS_2;Stegosaurus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;STEGOSAURUS;162000;2.5;Stegosaurus_2.png
+DIPLODOCUS_1;Diplodocus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;DIPLODOCUS;129000;1.6;Diplodocus_1.png
+DIPLODOCUS_2;Diplodocus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;DIPLODOCUS;516000;2.4;Diplodocus_2.png
+BRACHIOSAURUS_1;Brachiosaurus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;BRACHIOSAURUS;405000;3.4;Brachiosaurus_1.png
+BRACHIOSAURUS_2;Brachiosaurus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;BRACHIOSAURUS;1620000;2.3;Brachiosaurus_2.png
+IGUANODON_1;Iguanodon: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;IGUANODON;1260000;3.2;Iguanodon_1.png
+IGUANODON_2;Iguanodon: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;IGUANODON;5040000;2.2;Iguanodon_2.png
+DEINONYCHUS_1;Deinonychus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;DEINONYCHUS;3900000;3.0;Deinonychus_1.png
+DEINONYCHUS_2;Deinonychus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;DEINONYCHUS;15600000;2.1;Deinonychus_2.png
+SPINOSAURUS_1;Spinosaurus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;SPINOSAURUS;12000000;2.8;Spinosaurus_1.png
+SPINOSAURUS_2;Spinosaurus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;SPINOSAURUS;48000000;2.0;Spinosaurus_2.png
+ANKYLOSAURUS_1;Ankylosaurus: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;ANKYLOSAURUS;36000000;2.6;Ankylosaurus_1.png
+ANKYLOSAURUS_2;Ankylosaurus: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;ANKYLOSAURUS;144000000;1.8;Ankylosaurus_2.png
+TRICERATOPS_1;Triceratops: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;TRICERATOPS;108000000;2.4;Triceratops_1.png
+TRICERATOPS_2;Triceratops: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;TRICERATOPS;432000000;1.7;Triceratops_2.png
+TYRANNOSAURUS_1;Tyrannosaurus rex: Karte 1;Eine effizientere Nahrungsaufnahme steigert die Fossilienproduktion dieses Dinosauriers dauerhaft.;TYRANNOSAURUS;300000000;2.2;Tyrannosaurus-rex_1.png
+TYRANNOSAURUS_2;Tyrannosaurus rex: Karte 2;Ein angepasster Stoffwechsel erhöht die Energieausbeute und verbessert die Fossilienproduktion dauerhaft.;TYRANNOSAURUS;1200000000;1.5;Tyrannosaurus-rex_2.png

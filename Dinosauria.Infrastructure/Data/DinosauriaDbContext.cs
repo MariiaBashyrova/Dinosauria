@@ -26,7 +26,7 @@ public class DinosauriaDbContext(DbContextOptions<DinosauriaDbContext> options)
     public DbSet<Spielbedingung> Spielbedingungen => Set<Spielbedingung>();
     public DbSet<Dinosaurierbedingung> Dinosaurierbedingungen => Set<Dinosaurierbedingung>();
     public DbSet<Kartenbedingung> Kartenbedingungen => Set<Kartenbedingung>();
-
+    public DbSet<SystemKonfiguration> SystemKonfigurationen => Set<SystemKonfiguration>();
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseSqlServer(DatabaseConnection.ConnectionString);
 
@@ -98,6 +98,27 @@ public class DinosauriaDbContext(DbContextOptions<DinosauriaDbContext> options)
             e.HasKey(s => s.SpielzielID);
             e.Property(s => s.Name).HasMaxLength(100);
             e.Property(s => s.Beschreibung).HasMaxLength(500);
+        });
+
+        modelBuilder.Entity<SystemKonfiguration>(e =>
+        {
+            e.ToTable("SystemKonfiguration");
+            e.HasKey(s => s.ID);
+
+            e.HasOne(s => s.Spielziel)
+                .WithMany()
+                .HasForeignKey(s => s.SpielzielID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            e.HasOne(s => s.Ressource)
+                .WithMany()
+                .HasForeignKey(s => s.RessourceID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            e.HasOne(s => s.ErsterDinosaurier)
+                .WithMany()
+                .HasForeignKey(s => s.DinosaurierartID)
+                .OnDelete(DeleteBehavior.NoAction);
         });
 
         modelBuilder.Entity<SpielDinosaurier>()

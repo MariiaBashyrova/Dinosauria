@@ -91,6 +91,18 @@ public sealed class SpielzielRepository(DinosauriaDbContext context) : ISpielzie
         .FirstOrDefault(s => s.SpielzielID == spielzielID);
 }
 
+public sealed class SystemKonfigurationRepository(DinosauriaDbContext context) : ISystemKonfigurationRepository
+{
+    public IReadOnlyList<SystemKonfiguration> AlleLaden() =>
+        context.SystemKonfigurationen
+        .Include(x => x.Spielziel)
+        .Include(x => x.Ressource)
+        .Include(x => x.ErsterDinosaurier)
+        .ToList();
+
+    public SystemKonfiguration? Finden(int ID) =>
+    context.SystemKonfigurationen.FirstOrDefault(k => k.ID == ID);
+}
 public sealed class RessourceRepository(DinosauriaDbContext context) : IRessourceRepository
 {
     public IReadOnlyList<Ressource> AlleLaden() =>

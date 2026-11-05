@@ -22,15 +22,23 @@ public class CsvKonfigurationLader
             .ToList();
     }
 
+    private Dictionary<string, string> KonfigurationsWerteLaden()
+    {
+        return CsvLesen("konfiguration.csv")
+            .ToDictionary(x => x[0], x => x[1]);
+    }
     public void Laden()
     {
         if (_context.Set<Ressource>().Any())
             return;
 
+        var werte = KonfigurationsWerteLaden();
+
         RessourcenLaden();
-        DinosaurierLaden();
-        KartenLaden();
+        DinosaurierLaden(werte["Ressource"]);
+        KartenLaden(werte["Ressource"]);
         SpielzielLaden();
+        SystemKonfigurationLaden(werte);
         BedingungenLaden();
 
         _context.SaveChanges();
@@ -50,9 +58,9 @@ public class CsvKonfigurationLader
         _context.SaveChanges();
     }
 
-    private void DinosaurierLaden()
+    private void DinosaurierLaden(string ressourcenName)
     {
-        var fossilien = _context.Set<Ressource>().Single(x => x.Name == "Fossilien");
+        var fossilien = _context.Set<Ressource>().Single(x => x.Name == ressourcenName);
 
         foreach (var zeile in CsvLesen("dinosaurier.csv"))
         {
@@ -73,7 +81,7 @@ public class CsvKonfigurationLader
 
         _context.SaveChanges();
     }
-    private void KartenLaden()
+    private void KartenLaden(string ressourcenName)
     {
         var dinosaurier = CsvLesen("dinosaurier.csv")
     .ToDictionary(
@@ -82,7 +90,7 @@ public class CsvKonfigurationLader
             .Single(d => d.Name == zeile[1]));
 
         var fossilien = _context.Set<Ressource>()
-            .Single(x => x.Name == "Fossilien");
+            .Single(x => x.Name == ressourcenName);
 
         foreach (var zeile in CsvLesen("karten.csv"))
         {
@@ -115,6 +123,28 @@ public class CsvKonfigurationLader
 
         _context.SaveChanges();
     }
+
+    private void SystemKonfigurationLaden(Dictionary<string, string> werte)
+    {
+        var spielziel = _context.Spielziele
+            .Single(x => x.Name == werte["Spielziel"]);
+
+        var ressource = _context.Ressourcen
+            .Single(x => x.Name == werte["Ressource"]);
+
+        var dinosaurier = _context.Dinosaurierarten
+            .Single(x => x.Name == werte["ErsterDinosaurier"]);
+
+        _context.SystemKonfigurationen.Add(new SystemKonfiguration
+        {
+            Spielziel = spielziel,
+            Ressource = ressource,
+            ErsterDinosaurier = dinosaurier,
+            Startmenge = decimal.Parse(werte["Startmenge"], CultureInfo.InvariantCulture)
+        });
+
+        _context.SaveChanges();
+    }
     private void BedingungenLaden()
     {
         var dinosaurier = CsvLesen("dinosaurier.csv")
@@ -129,8 +159,9 @@ public class CsvKonfigurationLader
                 zeile => _context.Set<Ressource>()
                     .Single(r => r.Name == zeile[1]));
 
-        var spielziel = _context.Set<Spielziel>()
-            .Single(x => x.Name == "Fossiliensammler");
+        var spielziel = _context.SystemKonfigurationen
+    .Select(x => x.Spielziel)
+    .Single();
 
         var karten = CsvLesen("karten.csv")
             .ToDictionary(

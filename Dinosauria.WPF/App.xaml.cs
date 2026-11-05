@@ -29,6 +29,8 @@ public partial class App : System.Windows.Application
         var dinosaurierRepository = new DinosaurierartRepository(_context);
         var karteRepository = new KarteRepository(_context);
         var spielzielRepository = new SpielzielRepository(_context);
+        var systemKonfiguration = new SystemKonfigurationRepository(_context);
+
 
         var spielService = new SpielService(
             spielRepository,
@@ -36,7 +38,8 @@ public partial class App : System.Windows.Application
             ressourceRepository,
             dinosaurierRepository,
             karteRepository,
-            spielzielRepository);
+            spielzielRepository, 
+            systemKonfiguration);
 
         var mainMenuViewModel = new MainMenuViewModel(spielService);
 

@@ -4,12 +4,13 @@ using Dinosauria.Domain.Repositories;
 namespace Dinosauria.Application.Services;
 
 public class SpielService(
+
     ISpielRepository spielRepository,
     ISpielerRepository spielerRepository,
     IRessourceRepository ressourceRepository,
     IDinosaurierartRepository dinosaurierRepository,
     IKarteRepository karteRepository,
-    ISpielzielRepository spielzielRepository)
+    ISpielzielRepository spielzielRepository, ISystemKonfigurationRepository konfigurationRepository)
 {
     public Spieler SpielerHinzufuegen(string name)
     {
@@ -40,14 +41,19 @@ public class SpielService(
         var spieler = spielerRepository.Finden(spielerID)
             ?? throw new InvalidOperationException("Spieler nicht gefunden.");
 
-        var ressourcen = ressourceRepository.AlleLaden();
         var dinosaurier = dinosaurierRepository.AlleLaden();
         var karten = karteRepository.AlleLaden();
-        var spielziel = spielzielRepository.AlleLaden()
-            .Single(x => x.SpielzielID == 1);
+        var konfiguration = konfigurationRepository.AlleLaden();
 
-        var fossilien = ressourcen.Single(x => x.Name == "Fossilien");
+        var systemKonfiguration = konfiguration.SingleOrDefault()
+    ?? throw new InvalidOperationException("Systemkonfiguration nicht gefunden.");
 
+        var spielziel = systemKonfiguration.Spielziel;
+
+        var fossilien = systemKonfiguration.Ressource;
+
+        decimal startmenge = systemKonfiguration.Startmenge;
+        var ersterDino = systemKonfiguration.ErsterDinosaurier;
         var spiel = new Spiel
         {
             Spieler = spieler,
@@ -60,7 +66,7 @@ public class SpielService(
         spiel.SpielRessourcen.Add(new SpielRessource
         {
             Ressource = fossilien,
-            Bestand = 10,
+            Bestand = startmenge,
             GesamtProduziert = 0
         });
 
@@ -70,7 +76,7 @@ public class SpielService(
             {
                 Dinosaurierart = d,
                 Anzahl = 0,
-                IstFreigeschaltet = d.Name == "Eoraptor"
+                IstFreigeschaltet = d == ersterDino
             });
         }
 

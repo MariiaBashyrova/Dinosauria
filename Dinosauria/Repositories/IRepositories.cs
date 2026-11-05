@@ -32,6 +32,11 @@ public interface ISpielzielRepository
     Spielziel? Finden(int spielzielID);
 }
 
+public interface ISystemKonfigurationRepository
+{
+    IReadOnlyList<SystemKonfiguration> AlleLaden();
+    SystemKonfiguration? Finden(int ID);
+}
 public interface IRessourceRepository
 {
     IReadOnlyList<Ressource> AlleLaden();
